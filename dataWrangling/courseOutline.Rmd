@@ -5,8 +5,8 @@ title: |
   | Course Overview
   
 author: |
-  | Seth Berry
-  | seth.berry@nd.edu
+  | John Lalor (thanks to Seth Berry for much of the content)
+  | john.lalor@nd.edu
 output:
   html_document:
     theme: flatly
@@ -18,22 +18,45 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Logistics
+### Meeting days 
+10/14/2019 - 10/17/2019, 9:00am - 12:15pm
 
-During the next four days, we are going to cover a significant amount of data wrangling. While we will not cover every single data wrangling technique, we will cover enough that you should feel confident when tricky data situation land on you lap. We will be using R and RStudio to do our work during the week. With regard to data, we will be using built-in data and data from other sources for our demonstrations and exercises. You might even have some data of your own that you want to bring in to work on -- I support this 100%.
+### Location
+TBD
+
+### My office
+Mendoza 338B (You'll be spending a lot of time with me this week, but afterwards you can always drop by or send me an email to schedule a meeting.)
+
+### My office phone number
+574-631-5104
+
+
+## Welcome
+
+Welcome to Data Wrangling with R!
+During the next four days, we are going to cover a significant amount of data wrangling. 
+While we will not cover every single data wrangling technique, we will cover enough that you should feel confident when tricky data situations land on your lap. 
+We will be using R and RStudio to do our work during the week. 
+With regard to data, we will be using built-in data and data from other sources for our demonstrations and exercises. 
+You might even have some data of your own that you want to bring in to work on -- I support this 100%.
  
 
 ## Getting The Most From The Week
 
-As previously noted, we will cover many techniques in this course. I am here merely to be your guide on this journey into the heart of data wrangling; to that end, the majority of our time will be spent working on code. After every topic is introduced, you will have the opportunity to try things out. Please take this opportunity to work through the code and experiment -- it is truly the only way to learn how to wrangle data. To borrow from Massive Attack: 
+As previously noted, we will cover many techniques in this course. 
+I am here merely to be your guide on this journey into the heart of data wrangling; to that end, the majority of our time will be spent working on code. 
+After every topic is introduced, you will have the opportunity to try things out. 
+Please take this opportunity to work through the code and experiment -- it is truly the only way to learn how to wrangle data. 
 
-> Wrangling...wrangling...wrangling's a verb.  
-> Wrangling is a doing word.
-
-The more you interact with the code, the more you will understand how it works and how you can combine functions to make data bend to your will. Work alone, in groups, ask me for help, or anything else to play with the material -- just interact with it!
+The more you interact with the code, the more you will understand how it works and how you can combine functions to make data bend to your will. 
+Work alone, in groups, ask me for help, or anything else to play with the material -- just interact with it!
 
 ## Assessment
 
-At the end of every day, you will be given one data wrangling problem -- you will not need to provide any code for these assignments. Instead, your mission is to explain (using the parlance of our times) how you would solve the wrangling problem. Coding is very important and you will be doing plenty of it, but a big part of data wrangling is creating the mental map for what you are doing and how you are going to get there.
+At the end of every day, you will be given one data wrangling problem -- you will not need to provide any code for these assignments. 
+Instead, your mission is to explain (using the parlance of our times) how you would solve the wrangling problem. 
+Coding is very important and you will be doing plenty of it, but a big part of data wrangling is creating the mental map for what you are doing and how you are going to get there.
 
 Your job is to explain how to get from here:
 
@@ -46,11 +69,14 @@ To here:
 
 Use these daily checks to start practicing how to build your mental data wrangling palace.
 
-These daily checks are absolutely necessary and mandatory.
+**These daily checks are absolutely necessary and mandatory.**
 
-While not, strictly speaking, an assessment, our last day together is going to be a hackathon. You will get into groups of 2 to 5 people, choose one of three datasets, cobble it into some shape, and give a three minute presentation. The probability of some breakfast treat appearing is incredibly close to 1.  
+While not, strictly speaking, an assessment, our last day together is going to be a hackathon. 
+You will get into groups of 2 to 5 people, choose one of three datasets, cobble it into some shape, and give a three minute presentation. 
+The probability of some breakfast treat appearing is incredibly close to 1.  
 
-## Day 1
+## Schedule
+### Day 1
 
 - Importing data (cooler than you think it will be)
 
@@ -62,7 +88,7 @@ While not, strictly speaking, an assessment, our last day together is going to b
 
 - Presentation and reproducibility
 
-## Day 2
+### Day 2
 
 - Reshaping
 
@@ -72,7 +98,7 @@ While not, strictly speaking, an assessment, our last day together is going to b
 
 - String cleaning
 
-## Day 3
+### Day 3
 
 - String distances and fuzzy joins
 
@@ -86,7 +112,7 @@ While not, strictly speaking, an assessment, our last day together is going to b
 
 - Apply family
 
-## Day 4
+### Day 4
 
 - Brief review of data wrangling techniques and principles
 

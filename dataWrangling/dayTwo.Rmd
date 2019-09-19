@@ -39,7 +39,7 @@ You can even summarize all of your variables in a handy way.
 
 ```{r}
 mtcars %>% 
-  summarize_all(funs(mean, sd), na.rm = TRUE)
+  summarize_all(lst(mean, sd), na.rm = TRUE)
 ```
 
 Because we are dealing with the tidyverse, variable selection is included.
@@ -47,7 +47,7 @@ Because we are dealing with the tidyverse, variable selection is included.
 ```{r}
 mtcars %>% 
   summarize_at(vars(starts_with("c")), 
-               funs(mean, sd), na.rm = TRUE)
+               lst(mean, sd), na.rm = TRUE)
 ```
 
 

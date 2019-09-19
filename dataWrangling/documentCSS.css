@@ -2,8 +2,8 @@ body {
     font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 15px;
     line-height: 1.42857143;
-    color: #f1f1f1;
-    background-color: #000;
+    /*color: #f1f1f1;
+    background-color: #000;*/
 }
 
 pre {
@@ -14,14 +14,14 @@ pre {
     line-height: 1.42857143;
     word-break: break-all;
     word-wrap: break-word;
-    color: #f1f1f1;
-    background-color: #000;
+    /*color: #f1f1f1;
+    background-color: #000;*/
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
 
 pre:not([class]) {
-    background-color: #000;
+    /*background-color: #000;*/
 }
 
 .list-group-item {
@@ -29,7 +29,7 @@ pre:not([class]) {
     display: block;
     padding: 10px 15px;
     margin-bottom: -1px;
-    background-color: #000;
+    /*background-color: #000;*/
     border: 1px solid #ecf0f1;
 }
 
@@ -38,7 +38,7 @@ pre:not([class]) {
 }
 
 .func {
-   color: #ff5500;
+   /*color: #ff5500;*/
 }
 
 .neonBlue {
