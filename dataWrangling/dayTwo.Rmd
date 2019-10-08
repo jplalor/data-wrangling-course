@@ -1,7 +1,6 @@
 ---
-title: | 
-      | Practical Data Wrangling With R
-      | Day Two
+title: "Data Wrangling With R"
+subtitle: "Day Two"
 output:
   html_document:
     toc: true
@@ -88,20 +87,22 @@ Data can take many different forms.
 
 We can have data that looks like this:
 
-```{r, eval = FALSE}
+```{r}
 wideDat = data.frame(id = 1:3, 
                      age = c(33, 35, 37), 
                      employeeType = c("full", "full", "part"))
+wideDat
 ```
 
 
 Or like this:
 
-```{r, eval = FALSE}
-wideDat = data.frame(id = rep(1:3, times = 2), 
+```{r}
+longDat = data.frame(id = rep(1:3, times = 2), 
                      variable = rep(c("age", "employeeType"), each = 3), 
                      value = c(33, 35, 37, 
                                "full", "full", "part"))
+longDat
 ```
 
 
@@ -111,11 +112,18 @@ The second type, long data, is what many will call key-value pairs. You will oft
 
 You will encounter people who will swear that one way or the other is the ideal way to represent data -- we are going to opt for pragmatic as opposed to dogmatic. We can easily switch between these two types of data representations -- this is called reshaping.
 
-There is a bit of a hierarchy in R with regard to reshaping data. The <span class="func">reshape</span> function in the <span class="pack">stats</span> package can handle most of your needs, but to resulting data is a bit on the ugly side (bad default row names, weird automatic column names, and a bunch of arguments). The <span class="pack">reshape</span> package gives you all of the power, but with clearer code and better output. The <span class="pack">reshape2</span> package has all of the power, but with some added functionality. The <span class="pack">tidyr</span> package makes things incredibly easy, but at the expense of some flexibility. 
+There is a bit of a hierarchy in R with regard to reshaping data. The <span class="func">reshape</span> function in the <span class="pack">stats</span> package can handle most of your needs, but the resulting data is a bit on the ugly side (bad default row names, weird automatic column names, and a bunch of arguments). The <span class="pack">reshape</span> package gives you all of the power, but with clearer code and better output. The <span class="pack">reshape2</span> package has all of the power, but with some added functionality. The <span class="pack">tidyr</span> package makes things incredibly easy, but at the expense of some flexibility. 
 
 ## Base/stats
 
-The following chunk of code needs the <span class="func">as.data.frame()</span>. Why, you might ask? Almost everything in <span class="pack">dplyr</span> converts data to a <span class="pack">tibble</span>. Many base R functions will go crazy when they encounter a tibble, so you need to explicitly make it a data frame. You might ask what is the trouble tibbles (anyone?)...
+The following chunk of code needs the <span class="func">as.data.frame()</span>. Why, you might ask? Almost everything in <span class="pack">dplyr</span> converts data to a <span class="pack">tibble</span>. What's a <span class="pack">tibble</span>? [From the tidyverse website](https://tibble.tidyverse.org/):
+
+> Tibbles are data.frames that are lazy and surly: they do less (i.e. they don’t change variable names or types, and don’t do partial matching) and complain more (e.g. when a variable does not exist)
+
+
+Many base R functions will go crazy when they encounter a tibble, so you need to explicitly make it a data frame. You might ask what is the trouble with tibbles (anyone?)...
+
+Notice some of the base R reshape quirks?
 
 ```{r}
 
@@ -209,6 +217,40 @@ starwarsLong %>%
 ```
 
 
+## pivot
+
+As of very recently, <span class="func">gather</span> and <span class="func">spread</span> have been retired in the tidyverse. 
+The new way that the cool kids are manipulating their tibbles it is with <span class="func">pivot_longer</span> and <span class="func">pivot_wider</span>.
+
+```{r}
+starwars %>% 
+  filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
+  select(name, height, mass) %>% 
+  tidyr::pivot_longer(., names_to="type", values_to="value", -name) %>% 
+  ggplot(., aes(x = name, y = value, color = type)) + 
+  geom_point(size = 3.5) +
+  scale_color_brewer(palette = "Dark2") +
+  theme_minimal()
+```
+
+And to go back:
+
+```{r}
+
+starwarsLong = starwars %>% 
+  filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
+  select(name, height, mass) %>% 
+  tidyr::pivot_longer(., names_to="type", values_to="value", -name)
+
+starwarsLong
+
+starwarsLong %>% 
+  tidyr::pivot_wider(., names_from = type, values_from=value)
+
+```
+
+
+
 In addition to reshaping, <span class="pack">tidyr</span> has some handy functions for splitting (<span class="func">separate</span>) and pasting (<span class="func">unite</span>) columns.
 
 ## Others
@@ -217,7 +259,8 @@ While we won't dive into it, the <span class="pack">splitstackshape</span> packa
 
 ## Your Turn
 
-
+Spend some time pivoting different subsets of the starwards data set. 
+What can you filter on/select/plot?
 
 
 # Merging 
@@ -244,9 +287,7 @@ mergedDat = merge(x = board, y = organization, by = "",
 If there is anything good to be gotten from SQL, it is the notion of different joins and the handy language that it provides for specifying those joins. The merge function gives us no such explicit conventions (we would need to intuit or...read the documentation).
 
 
-### Simulated Merryment
-
-#### Live And Onstage!
+### Join Types
 
 Left join = all rows from x and all columns from x and y
 
@@ -357,7 +398,7 @@ left_join(data1, data2, by = "id") %>%
 
 ## Binding
 
-On more than just occasion, you will want to bring data together in a "stacked" manner.
+On many occasions, you will want to bring data together in a "stacked" manner.
 
 Imagine you have two data files that look exactly alike with regard to column names, but the values are different. This is when we could use a row bind:
 
@@ -560,7 +601,7 @@ Github is an online version of Git. Git can be used as a repository, but its gre
 
 Let's take a quick look at what Github does and how we can use it for our benefit.
 
-```{git, eval = FALSE}
+```{bash, eval = FALSE}
 git config --global user.name "saberry"
 
 git config --global user.email "seth.berry@nd.edu"

@@ -1,10 +1,13 @@
 ---
 title: "Data Wrangling With R"
-output:
-  revealjs::revealjs_presentation:
-    css: documentCSS.css
-    theme: night
-    center: true
+subtitle: "Introduction"
+author: "John Lalor"
+date: October 14, 2019
+output: binb::metropolis
+#  revealjs::revealjs_presentation:
+#    css: documentCSS.css
+#    theme: night
+#    center: true
 ---
 
 ```{r setup, include=FALSE}
@@ -16,19 +19,6 @@ knitr::opts_chunk$set(echo = TRUE)
 Data wrangling is potentially comprised of many different tasks.
 
 At the end of the day, we are trying to create data rectangles.
-
-## {data-background="https://assets.mubi.com/images/film/18159/image-w856.jpg?1445924140"}
-
-## {data-background="http://theopenews.com/images/articoli/horse.jpg"}
-
-## {data-background="https://i.imgur.com/KzphWM2.gif"}
-
-
-## {data-background="http://wpmedia.o.canada.com/2014/06/martin-tata9.jpg"}
-
-## Why Are You Here?
-
-Let's watch this <a href="https://www.youtube.com/watch?v=_UQsqFiyw9k">video</a> together.
 
 ## 
 
@@ -73,22 +63,28 @@ Grooming the stray:
 fido = fido * 2
 ```
 
+## 
+
+```{r}
+fido
+```
 
 
 ## Applying Functions
 
 Now that we have some objects, x and y, we can apply some functions to each:
 
-```{r}
 
+```{r}
 xMean = mean(x)
 
 ySD = sd(y)
 
+print(c(xMean, ySD)) 
 ```
 
 
-## Combining Function
+## Combining Functions
 
 We can also combine functions!
 
@@ -121,7 +117,7 @@ install.packages("dplyr")
 
 ## Important Issues
 
-All closures need...closed: (), {}, '', ""
+All closures need...closing: (), {}, '', ""
 
 Case matters:
 
@@ -139,3 +135,15 @@ install.packages(c("tidyverse", "rio",
 ```
 
 If more creep up, we will install them when the time is right.
+
+## R and RStudio
+
+Download and Install R
+
+- [http://cran.us.r-project.org/](http://cran.us.r-project.org/)
+
+Download and Install RStudio
+
+- Integrated Development Environment (IDE) for R
+- [https://rstudio.com/products/rstudio/download/](https://rstudio.com/products/rstudio/download/)
+

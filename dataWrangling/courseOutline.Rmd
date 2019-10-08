@@ -55,7 +55,7 @@ Work alone, in groups, ask me for help, or anything else to play with the materi
 ## Assessment
 
 At the end of every day, you will be given one data wrangling problem -- you will not need to provide any code for these assignments. 
-Instead, your mission is to explain (using the parlance of our times) how you would solve the wrangling problem. 
+Instead, your mission is to explain how you would solve the wrangling problem. 
 Coding is very important and you will be doing plenty of it, but a big part of data wrangling is creating the mental map for what you are doing and how you are going to get there.
 
 Your job is to explain how to get from here:

@@ -1,7 +1,6 @@
 ---
-title: | 
-      | Practical Data Wrangling With R
-      | Day One
+title: "Data Wrangling With R"
+subtitle: "Day One"
 output:
   html_document:
     toc: true
@@ -24,13 +23,29 @@ tidyverse::tidyverse_logo()
 ```
 
 
-We are going to be working around in the <span class="pack">tidyverse</span> for a good chunk of our time together. The whole point of the <span class="pack">tidyverse</span> is to offer a grammar of verbs. It is going to help us in a lot of the situations that we are going to be seeing.
+We are going to be working around in the <span class="pack">tidyverse</span> for a good chunk of our time together.
+
+[Tidyverse homepage](https://www.tidyverse.org/) 
+
+The whole point of the <span class="pack">tidyverse</span> is to offer a grammar of verbs. It is going to help us in a lot of the situations that we are going to be seeing.
+
 
 Another great feature of the <span class="pack">tidyverse</span> is the pipe: <span class="func">%>%</span>
 
 It does the same thing as the Unix |, but | in R is an or operator. 
 
 With all of the glowing praise for the <span class="pack">tidyverse</span>, we are still going to see some <span class="pack">base</span> R. Sometimes, it will demonstrate great reasons for using the <span class="pack">tidyverse</span>. In other situations, it will help you to not be afraid to use it when situations arise.
+
+## Tidyverse Note
+
+If you need a lot of the tidyverse, you can load it:
+
+```{r eval=FALSE}
+library(tidyverse)
+```
+
+But if you will only need a few tidyverse packages, you can load them directly.
+For the next few sections we'll load each package as we need it...
 
 
 # Some Demonstrations 
