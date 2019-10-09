@@ -602,7 +602,17 @@ Github is an online version of Git. Git can be used as a repository, but its gre
 Let's take a quick look at what Github does and how we can use it for our benefit.
 
 ```{bash, eval = FALSE}
-git config --global user.name "saberry"
+git config --global user.name "John Lalor"
 
-git config --global user.email "seth.berry@nd.edu"
+git config --global user.email "john.lalor@nd.edu"
 ```
+
+# Assessment 
+
+We've made it to the end of Day 2, which means we're more than halfway through the data wrangling material that we'll cover (but certainly not halfway through all of the data wrangling tools out there). For today's assessment I'd like to you think about a problem or data set that you've encountered. How can the tools we've learned so far help?
+
+Specifically, think about (and the discuss):
+
+- A data set that you've worked with, a data set you would like to work with, or a business problem that you have come across where a large (and possibly messy) data set would be useful for solving the problem.
+- What steps would you need to do to get something out of the data? *Something* here is intentionally vague, and could refer to summary statistics, visualizations, subsets of the data, or something else. Steps here should be tool-agnostic.
+- What tools would you use to accomplish the goals in the previous step? If you have come up with steps that involve tools we haven't covered, I encourage you to browse through the rest of the [tidyverse](https://www.tidyverse.org/packages/). 
