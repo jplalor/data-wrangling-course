@@ -5,13 +5,12 @@ title: |
   | Course Overview
   
 author: |
-  | John Lalor (thanks to Seth Berry for much of the content)
-  | john.lalor@nd.edu
-output:
-  html_document:
-    theme: flatly
-    highlight: zenburn
-    css: documentCSS.css
+  | John Lalor (with thanks to Seth Berry)
+output: pdf_document 
+  #html_document:
+  #  theme: flatly
+  #  highlight: zenburn
+  #  css: documentCSS.css
 ---
 
 ```{r setup, include=FALSE}
@@ -19,17 +18,22 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Logistics
-### Meeting days 
+### Course dates 
 10/14/2019 - 10/17/2019, 9:00am - 12:15pm
 
-### Location
-TBD
+### Course location 
+Mendoza 159
 
-### My office
-Mendoza 338B (You'll be spending a lot of time with me this week, but afterwards you can always drop by or send me an email to schedule a meeting.)
+### Instructor
+**John Lalor**
 
-### My office phone number
-574-631-5104
+IT, Analytics, and Operations Department
+
+Email: [john.lalor@nd.edu](john.lalor@nd.edu)
+
+Office: Mendoza 338B
+
+Phone: 574-631-5104
 
 
 ## Welcome
@@ -65,7 +69,7 @@ Your job is to explain how to get from here:
 
 To here:
 
-![](http://i.pinimg.com/736x/a8/56/17/a85617ee1a02495037456d753f15b80f--most-beautiful-puzzles.jpg)
+![](most-beautiful-puzzles.jpg)
 
 Use these daily checks to start practicing how to build your mental data wrangling palace.
 
