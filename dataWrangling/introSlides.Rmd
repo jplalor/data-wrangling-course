@@ -24,7 +24,7 @@ At the end of the day, we are trying to create data rectangles.
 
 If you have used R before, you can completely ignore me for the next few minutes. 
 
-  - Wait for the special signal to return your attention!
+  - Wait for the signal to return your attention!
 
 
 ## Basics: Quickly
@@ -147,3 +147,17 @@ Download and Install RStudio
 - Integrated Development Environment (IDE) for R
 - [https://rstudio.com/products/rstudio/download/](https://rstudio.com/products/rstudio/download/)
 
+## Keep this in mind...
+
+- The R/Rstudio community is awesome
+
+- R (and in particular the tidyverse) is *very* well documented
+  - If you forget something, it's online
+  - If you don't know how to do something, it's online
+- Resources (a few years old but still relevant):
+  - The R community is one of R's best features
+    - [https://blog.revolutionanalytics.com/2017/06/r-community.html](https://blog.revolutionanalytics.com/2017/06/r-community.html)
+  - Hey! You there! You are welcome here
+    - [https://ropensci.org/blog/2017/06/23/community/](https://ropensci.org/blog/2017/06/23/community/)
+  
+  
