@@ -16,6 +16,27 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 ```
 
 
+# Day 1 Followup
+
+## SPSS and Haven
+The user_na option in haven::read_spss affects how the NA values are stored internally. If you have missing data that is missing for different reasons, sometimes it is important to take that into account. For now, we can ignore it and read the data in without that option (user_na defaults to FALSE):
+
+```{r, eval = FALSE}
+haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav")
+
+
+# if you want to convert all missing values to NA:
+#haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
+#                 user_na = FALSE)
+
+# if your missing values are meaningful and distinct:
+#haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
+#                 user_na = TRUE)
+```
+
+## Day 1 Exercises
+
+Show some examples of how to do things from yesterday here...
 
 # Summarizing And Grouping
 
