@@ -34,9 +34,8 @@ haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav")
 #                 user_na = TRUE)
 ```
 
-## Day 1 Exercises
-
-Show some examples of how to do things from yesterday here...
+## Day 1 Exercises Revisited
+Let's look at one way of working through them.
 
 # Summarizing And Grouping
 
@@ -94,7 +93,7 @@ stataExample = haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataEx
 
 2.  Check out the data names and find ones that might be suitable for grouping.
 
-    - Gender, leaderID, and a few others might stick out
+    - Gender, leader_tenure, and a few others might stick out
     
 3.  Pick a variable to summarize and some type of summary statistic.
 
@@ -167,7 +166,7 @@ as.data.frame(starwars) %>%
 
 ## reshape
 
-Let's use the <span class="pack">reshape</span> package to do the same thing. You are going to notice a few differences in the function arguments. The <span class="pack">reshape</span> packages have this notion of melting (going from wide to long) and casting (going from long to wide). Melting makes plenty of sense to me, but I can only imagine what casting means. 
+Let's use the <span class="pack">reshape</span> package to do the same thing. You are going to notice a few differences in the function arguments. The <span class="pack">reshape</span> packages have this notion of melting (going from wide to long) and casting (going from long to wide).  
 
 ```{r}
 starwars %>% 
@@ -428,8 +427,6 @@ data2003 = read.csv("https://www3.nd.edu/~sberry5/data/c2003_a.csv")
 
 data2004 = read.csv("https://www3.nd.edu/~sberry5/data/c2004_a.csv")
 
-# data2013 = read.csv("https://www3.nd.edu/~sberry5/data/")
-  
 complete = rbind(data2003, data2004)
 
 ```
@@ -487,11 +484,11 @@ For the love of all that is good, what does <span class="func">regexpr</span> do
 
 These are just a few of the questions that will come up when working with strings in base R.
 
-There is also the issue of mixed arguments. Consider grep and gsub.
+There is also the issue of mixed arguments. Consider grep and gsub. We'll explicitly note the input variables here...
 
 ```{r}
-realComments = c("I love wrangling data", "stringz r fun", 
-                 "This guy is a hack", "Can't we use excel?")
+realComments = c("I love wrangling data", "strings r fun", 
+                 "This guy is a stooge", "Can't we use excel?")
 
 grep(pattern = "\\b[a-z]{2}\\b", x = realComments, value = TRUE)
 
@@ -570,7 +567,7 @@ Did you notice "Peak" too? Why don't you handle that one?
 
 ## On Names, Regex, & Merging
 
-Occasionally, you will will want to merge or bind data, but the columns names are very different. Merge/join gives us a way to counteract this, but binding does not.
+Occasionally, you will will want to merge or bind data, but the column names are very different. Merge/join gives us a way to counteract this, but binding does not.
 
 When you get into those situation, you can clean up the names of the data with the same tools.
 
@@ -597,36 +594,11 @@ names(testDF2) = stringr::str_replace_all(names(testDF2), "\\.|_|\\W", "")
 
 
 
-Let's add another year into some data that we already saw:
-
-```{r, eval = FALSE}
-data2003 = readr::read_csv("https://www3.nd.edu/~sberry5/data/c2003_a.csv")
-
-data2004 = readr::read_csv("https://www3.nd.edu/~sberry5/data/c2004_a.csv")
-
-data2013 = readr::read_csv("https://www3.nd.edu/~sberry5/data/c2013_a.csv")
-  
-complete = rbind(data2003, data2004)
-
-## This will cause an error because of variable names!
-
-complete = rbind(complete, data2013)
-
-```
-
-Does everything still look good?
-
 # Github
 
 Github is an online version of Git. Git can be used as a repository, but its greatest power is in collaboration.
 
 Let's take a quick look at what Github does and how we can use it for our benefit.
-
-```{bash, eval = FALSE}
-git config --global user.name "John Lalor"
-
-git config --global user.email "john.lalor@nd.edu"
-```
 
 # Assessment 
 
