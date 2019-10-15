@@ -34,6 +34,22 @@ haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav")
 #                 user_na = TRUE)
 ```
 
+## Question about Argument Placement
+Remember this?
+
+```{r}
+library(ggplot2)
+
+library(lavaan)
+
+testData = HolzingerSwineford1939
+
+ggplot(testData, aes(x7, ageyr)) +
+  geom_point(aes(color = as.factor(grade)), alpha = .75)
+```
+
+Why is it the case that certain arguments (e.g. color) are inside aes() while others (e.g. alpha) are not?
+
 ## Day 1 Exercises Revisited
 Let's look at one way of working through them.
 
@@ -598,7 +614,10 @@ names(testDF2) = stringr::str_replace_all(names(testDF2), "\\.|_|\\W", "")
 
 Github is an online version of Git. Git can be used as a repository, but its greatest power is in collaboration.
 
-Let's take a quick look at what Github does and how we can use it for our benefit.
+I'd encourage you to check out the following to learn more about Git and GitHub:
+
+- [Tutorials from GitHub](https://guides.github.com/activities/hello-world/)
+- [Happy Git and GitHub for the useR](https://happygitwithr.com/) 
 
 # Assessment 
 

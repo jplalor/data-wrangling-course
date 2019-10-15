@@ -12,6 +12,7 @@ testData %>%
 
 testData %>%
   select(starts_with("lvi")) %>%
+#  cor() %>%
   cor(., use="pairwise.complete.obs") %>% 
   corrplot()
 
