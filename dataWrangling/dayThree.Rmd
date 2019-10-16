@@ -16,6 +16,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE, comment = "")
 ```
 
+# Admin
+## Day 2 Follow-up
+
+## Plan for the next two days
+
+# Day 3 Intro
+From what we've covered so far, you should be in a good position to wrangle a lot of different types of data. The tools from Days 1 and 2 will get you very far. Today we'll look at some interesting things for specific types of data, then wrap back around to some more common R techniques, and wrap up with preparation for tomorrow's hackathon. We'll be making teams and (starting to) select data sets for tomorrow at the end of today's class, so start thinking about potential teammates (2-4 students per team), team names, and data set ideas.
+
+
 # Fuzzy Joins 
 
 We have seen joins and some character work, but now we are going to combine them into one world.
@@ -125,6 +134,10 @@ fuzzyJoinCompustat = fread("https://www3.nd.edu/~sberry5/data/fuzzyJoinCompustat
 names(fuzzyJoinClients)
 names(fuzzyJoinCompustat)
 
+# because of the size of these data sets and how large fuzzy join results can be, we'll lok at a subset
+fuzzyJoinClients = fuzzyJoinClients[1:1000,]
+fuzzyJoinCompustat = fuzzyJoinCompustat[1:1000]
+
 ```
 
 We are going to merge on "TIENAME" and "Company Name", but they need some work.
@@ -132,7 +145,7 @@ We are going to merge on "TIENAME" and "Company Name", but they need some work.
 ```{r, eval = TRUE}
 fuzzyJoinClients$TIENAME = tolower(fuzzyJoinClients$TIENAME)
 
-fuzzyJoinCompustat$Company.Name = tolower(fuzzyJoinCompustat$Company.Name)
+fuzzyJoinCompustat$`Company Name` = tolower(fuzzyJoinCompustat$`Company Name`)
 
 head(fuzzyJoinClients)
 head(fuzzyJoinCompustat)
@@ -170,9 +183,8 @@ When you are doing some type of data wrangling tasks (especially when things nee
 library(dplyr)
 
 carsID = mtcars %>% 
-  mutate(rowID = 1:nrow(mtcars)) %>% 
-  group_by(cyl) %>% 
-  mutate(groupID = 1:n())
+  mutate(rowID = 1:nrow(mtcars),
+    groupID = group_indices(.,cyl))
 
 carsID
 ```
@@ -404,7 +416,7 @@ testNames = c("Jack", "Jill", "Frank", "Steve", "Harry", "Lloyd")
 sapply(testNames, function(x) paste(x, "went over the hill", sep = " "))
 ```
 
-The sapply function will return a vector -- what do you think an lapply will return? mapply?
+The sapply function will return a vector -- what do you think an lapply will return? mapply? Take a look at the documentation.
 
 Now that is a bit of a goofy example. Since R is vectorized, we would have gotten the same result just by pasting our testNames vector to the string. But, a more realistic situation is as follows:
 
@@ -425,9 +437,9 @@ shipRider = lapply(starwarsShips, function(x) {
 ```
 
 
-## Hackathon Prep
+# Hackathon Prep
 
-### Data sets
+## Data sets
 
 Where are they?
 
@@ -439,17 +451,35 @@ Possible sources of inspiration:
 
 - [Kaggle](https://www.kaggle.com/datasets)
 - [Data.gov](https://www.data.gov/open-gov/) 
+- [Text data!](https://github.com/niderhoff/nlp-datasets) 
 - [R packages that implement data sets](https://www.computerworld.com/article/3109890/these-r-packages-import-sports-weather-stock-data-and-more.html)
-- [Possibly outdated list of R sports data packages](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/)
+- [Possibly outdated list of R sports data (but a good place to start) packages](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/)
+
 
 Just a note on the last two links above, if you are using data that is alreay loaded in an R package, that is (potentially) fine, but I'll expect that there will be extra work on the downstream tasks to make up for the fact that the data is already in R. 
 
-### Your turn
+## Your turn
 
 Plan for tomorrow
 
-- Groups: between 2-4 members, but if you have a compelling case for going solo, let me know
+- Groups: between 2-5 members, but if you have a compelling case for going solo, let me know
+- Data: You'll need something to wrangle
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
 - Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
+
+For your presentation you can present:
+
+- Slides (Powerpoint OR pdf slides from an Rmd document)
+- knitted Rmd document
+
+Presentations should include:
+
+- Team name
+- Team members' names
+- Data set introduction
+- Wrangling performed (conceptual as well as tools used)
+- Final insight (tables, plots, etc.) 
+
+You should have your groups finalized by the end of class today. You don't necessarily need a final decision on your data (or team name), but that should be top priority for tomorrow morning.
 
 
