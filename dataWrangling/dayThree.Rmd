@@ -58,6 +58,9 @@ If we are merging, generalized edit distance might not give use the level of gra
 
 Let's try out a few different strings below.
 
+The next metric we'll look at is the Jaro-Winkler distance: [link](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance) 
+JW favors two strings with a shared prefix, and ranges from 0 (exact match) to 1 (no similarity).
+
 ```{r}
 library(stringdist)
 
@@ -79,7 +82,9 @@ adist(c(string1, string2, string3))
 We can see that we get a little more fine scoring with the Jaro-Winker distance.
 
 
-Now let's take a gander at Jaccard's distance:
+Now let's take a look at the Jaccard distance: [link](https://en.wikipedia.org/wiki/Jaccard_index) 
+
+Jaccard takes a set approach, and compares the two strings based on similar *n-grams*.
 
 ```{r}
 stringdist(string1, string2, method = "jaccard")
@@ -110,41 +115,50 @@ So, is there a good time to use something like soundex: sure. If you find yourse
 
 Let's use these files:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 library(data.table)
 
 fuzzyJoinClients = fread("https://www3.nd.edu/~sberry5/data/fuzzyJoinClients.csv")
 
 fuzzyJoinCompustat = fread("https://www3.nd.edu/~sberry5/data/fuzzyJoinCompustat.csv")
+
+names(fuzzyJoinClients)
+names(fuzzyJoinCompustat)
+
 ```
 
 We are going to merge on "TIENAME" and "Company Name", but they need some work.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 fuzzyJoinClients$TIENAME = tolower(fuzzyJoinClients$TIENAME)
 
 fuzzyJoinCompustat$Company.Name = tolower(fuzzyJoinCompustat$Company.Name)
-```
 
+head(fuzzyJoinClients)
+head(fuzzyJoinCompustat)
+
+```
 
 
 Let's try to merge them normally:
 
 ```{r, eval = FALSE}
-standardJoin = left_join(fuzzyJoinClients, fuzzyJoinCompustat, 
+standardJoin = inner_join(fuzzyJoinClients, fuzzyJoinCompustat, 
                          by = c("TIENAME" = "Company Name"))
 ```
 
 Not too good, right?
 
 ```{r, eval = FALSE}
-fuzzyStuff = fuzzyjoin::stringdist_left_join(fuzzyJoinClients, fuzzyJoinCompustat, 
+fuzzyStuff = fuzzyjoin::stringdist_inner_join(fuzzyJoinClients, fuzzyJoinCompustat, 
                          by = c("TIENAME" = "Company Name"), 
                          max_dist = .5, method = "jw", 
                          distance_col = "stringDistance")
 ```
 
 
+## Your turn
+Spend some time doing fuzzy joins on these two data sets. Vary the join type, distance metric, and threshold. 
 
 # Tips & Tricks 
 
@@ -168,7 +182,7 @@ carsID
 
 ### lubridate
 
-Another glorius thing that will happen to you is working with dates -- they tend to be a pain.
+Another glorious thing that will happen to you is working with dates -- they tend to be a pain.
 
 ```{r}
 Sys.Date()
@@ -229,8 +243,6 @@ exactAge = function(birthday,
 Run that and give it your birthday in "YEAR-MO-DY" format. While it might be goofy at first glance, can we think of anything practical for it?
 
 
-
-
 There is a similar package, <span class="pack">hms</span>, for dealing with time.
 
 
@@ -270,8 +282,8 @@ starwars = starwars %>%
   mutate(id = 1:nrow(.)) %>% 
   spread(key = films, value = films) %>% 
   group_by(name) %>% 
-  fill(12:18, .direction = "up") %>% 
-  fill(12:18, .direction = "down") %>% 
+  fill(14:20, .direction = "up") %>% 
+  fill(14:20, .direction = "down") %>% 
   slice(1)
 ```
 
@@ -411,4 +423,21 @@ shipRider = lapply(starwarsShips, function(x) {
   return(res)
 })
 ```
+
+
+## Hackathon Prep
+
+### Data sets
+
+Where are they?
+
+How do I find them? 
+
+How do I download them? 
+
+### Plan for tomorrow
+
+- Groups: between 2-4 members, but if you have a compelling case for going solo, let me know
+- Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
+
 
