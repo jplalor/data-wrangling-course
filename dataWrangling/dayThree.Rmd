@@ -435,9 +435,21 @@ How do I find them?
 
 How do I download them? 
 
-### Plan for tomorrow
+Possible sources of inspiration:
+
+- [Kaggle](https://www.kaggle.com/datasets)
+- [Data.gov](https://www.data.gov/open-gov/) 
+- [R packages that implement data sets](https://www.computerworld.com/article/3109890/these-r-packages-import-sports-weather-stock-data-and-more.html)
+- [Possibly outdated list of R sports data packages](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/)
+
+Just a note on the last two links above, if you are using data that is alreay loaded in an R package, that is (potentially) fine, but I'll expect that there will be extra work on the downstream tasks to make up for the fact that the data is already in R. 
+
+### Your turn
+
+Plan for tomorrow
 
 - Groups: between 2-4 members, but if you have a compelling case for going solo, let me know
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
+- Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
 
 
