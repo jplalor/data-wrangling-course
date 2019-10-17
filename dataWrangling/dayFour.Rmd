@@ -20,6 +20,10 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 
 - Day Three followup
 - CIF: [link](https://cif.nd.edu/)
+- Resources
+  - [Tidyverse page](https://www.tidyverse.org/)
+  - [R for Data Science Book (free)](https://r4ds.had.co.nz/)
+  
 - Hackathon 
 
 ## Hackathon Requirements
