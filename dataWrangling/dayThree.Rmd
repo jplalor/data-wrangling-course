@@ -297,6 +297,42 @@ starwars = starwars %>%
   fill(14:20, .direction = "up") %>% 
   fill(14:20, .direction = "down") %>% 
   slice(1)
+
+
+# OR 
+data(starwars)  # back to original 
+starwars = starwars %>% 
+  unnest(films) %>%
+  mutate(id = 1:nrow(.)) %>%
+  pivot_wider(names_from = films, values_from = films) %>%
+  group_by(name) %>% 
+  fill(., 14:20, .direction = "up") %>%
+  fill(., 14:20, .direction = "down") %>%
+  slice(1) 
+
+# OR
+library(reshape2)
+  
+data(starwars)
+
+# note that we had to remove vehicles and starships here.
+# You can save them in a new object and cbind them back after
+s.vehicles = starwars$vehicles
+s.starships = starwars$starships
+  
+starwars = starwars %>% 
+  select(-c(vehicles, starships)) %>%
+    unnest(films) %>% 
+    mutate(id = 1:nrow(.)) %>% 
+    reshape2::dcast(.,...~films, value.var="films") %>%
+    group_by(name) %>% 
+    fill(12:18, .direction = "up") %>% 
+    fill(12:18, .direction = "down") %>% 
+    slice(1) 
+
+starwars$vehicles = s.vehicles
+starwars$starships = s.starships
+
 ```
 
 
