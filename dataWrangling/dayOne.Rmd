@@ -27,14 +27,17 @@ We are going to be working around in the <span class="pack">tidyverse</span> for
 
 [Tidyverse homepage](https://www.tidyverse.org/) 
 
-The whole point of the <span class="pack">tidyverse</span> is to offer a grammar of verbs. It is going to help us in a lot of the situations that we are going to be seeing.
+The whole point of the <span class="pack">tidyverse</span> is to offer a grammar of verbs. 
+It is going to help us in a lot of the situations that we are going to be seeing.
 
 
 Another great feature of the <span class="pack">tidyverse</span> is the pipe: <span class="func">%>%</span>
 
 It does the same thing as the Unix |, but | in R is an or operator. 
 
-With all of the glowing praise for the <span class="pack">tidyverse</span>, we are still going to see some <span class="pack">base</span> R. Sometimes, it will demonstrate great reasons for using the <span class="pack">tidyverse</span>. In other situations, it will help you to not be afraid to use it when situations arise.
+With all of the glowing praise for the <span class="pack">tidyverse</span>, we are still going to see some <span class="pack">base</span> R. 
+Sometimes, it will demonstrate great reasons for using the <span class="pack">tidyverse</span>. 
+In other situations, it will help you to not be afraid to use it when situations arise.
 
 ## Tidyverse Note
 
@@ -53,9 +56,10 @@ For the next few sections we'll load each package as we need it...
 ## Summary Tables
 
 ```{r}
-
+# load our plotting library, ggplot2
 library(ggplot2)
 
+# diamonds is a data set that comes packaged with ggplot2
 plotDat = aggregate(diamonds$cut, by = list(cut = diamonds$cut), 
                     FUN = length)
 
@@ -67,6 +71,7 @@ plotDat
 ## Visual
 
 ```{r}
+
 ggplot(plotDat, aes(x = cut, y = n)) +
   geom_point(aes(size = n)) +
   theme_minimal()
@@ -74,7 +79,8 @@ ggplot(plotDat, aes(x = cut, y = n)) +
 
 ## (Im)Proper Plotting
 
-Look at <span class="func">help(mtcars)</span> and check out the variables. Can you spot what is wrong with this plot?
+Look at <span class="func">help(mtcars)</span> (also known as <span class="func">?mtcars</span>) and check out the variables. 
+Can you spot what is wrong with this plot?
 
 ```{r}
 ggplot(mtcars, aes(x = wt, y = mpg, color = am)) + 
@@ -127,7 +133,10 @@ diamonds %>%
   
 ```
 
-It isn't a reduction in lines, but it is certainly clearer and follows a more logical thought process. This is the whole point of the <span class="pack">tidyverse</span> (and <span class="pack">dplyr</span> specifically) -- allowing you to write how you would explain the process. 
+It isn't a reduction in lines, but it is certainly clearer and follows a more logical thought process. 
+This is the whole point of the <span class="pack">tidyverse</span> (and <span class="pack">dplyr</span> specifically) -- allowing you to write how you would explain the process. 
+Remember the "grammar" I mentioned earlier?
+The <span class="pack">tidyverse</span> operations each "do" something in the pipe sequence, so you can see explicitly what is being done to your data line by line. 
 
 As an added bonus, we don't need to create a bunch of different objects to do something simple.
 
@@ -148,11 +157,14 @@ You will often notice that a <span class="pack">dplyr</span> chunk might take a 
 
 # Data Import 
 
-Importing data is often the easiest part (never too hard to import a nice .csv). Sometimes, though, we need some other strategies.
+Data import can be easy. 
+Often times, it *is* easy (never too hard to import a nice .csv). 
+Sometimes, though, it most certainly is not. 
 
 ## Delimited Files
 
 Frequently, you will see nicely delimited text files that are not .csv files -- these are often tab-delimited files, but they can take other forms. 
+Delimited files are the most straightforward in terms of importing, as long as you know what is the separating character.
 
 ```{r, eval = FALSE}
 read.table("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.Employment", 
@@ -165,13 +177,20 @@ Is the same as:
 read.delim("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.Employment")
 ```
 
+Where is the "sep" argument in <span class="func">read.delim()</span> above? 
+Let's check the documentation...
+
 The <span class="func">read.table()</span> function gives you added flexibility to specify many different parameters. 
+
+### Your turn
 
 Examine the following file from SDC Platinum and read it in properly:
 
 <a href="https://www3.nd.edu/~sberry5/data/sdcTest.txt">SDC Wackiness</a>
 
 How did you do?
+
+### Alternatives
 
 Did you notice anything about these files? They are not really very big, but they might have taken a little bit of time to read in. There have been times where people have commented that R is too slow on the read side. If you find you files are not being read quickly enough, you can try a few alternatives: <span class="pack">readr</span> and <span class="pack">data.table</span>
 
@@ -212,13 +231,13 @@ At times, you will get data in some proprietary format. That is when you need to
 
 Download the following Excel file: https://www3.nd.edu/~sberry5/data/excelTest.xlsx
 
+What do we know about Excel workbooks? Check out the help on <span class="pack">readxl</span> and let me know our path forward.
 
 ```{r, eval = FALSE}
 readxl::read_excel(path = "")
 ```
 
 
-What do we know about Excel workbooks? Check out the help on <span class="pack">readxl</span> and let me know our path forward.
 
 ## SAS
 
@@ -273,6 +292,9 @@ For many of these tasks, you can just use the <span class="pack">rio</span> pack
 rio::import("folder/file")
 ```
 
+From rio's GitHub page [link](https://github.com/leeper/rio): 
+
+> The core advantage of rio is that it makes assumptions that the user is probably willing to make
 
 ## Nested Structures
 
@@ -289,8 +311,15 @@ jsonTest = jsonlite::read_json(path = "https://www3.nd.edu/~sberry5/data/options
                                 simplifyVector = TRUE)
 ```
 
+A few questions:
 
-This is a very simple form of JSON. We are going to see a hairier version of this data in the coming days. 
+- What's with the double colon?
+- What is the simplifyVector argument for?
+- How do I find the answers to these questions??
+
+This is a very simple form of JSON. 
+We are going to see a hairier version of this data in the coming days. 
+You may see JSON in your group project as well. 
 
 #### JSON Dangers
 
@@ -306,6 +335,8 @@ It looks like JSON, but...
 jsonlite::validate("https://www3.nd.edu/~sberry5/data/reviews_Musical_Instruments_5.json")
 ```
 
+What is wrong with this file?
+
 If we would want to read that in as true JSON, we would need to do some work:
 
 ```{r, eval = FALSE}
@@ -320,6 +351,7 @@ musicalInstruments = paste("[", musicalInstruments, "]", sep = "")
 musicalInstruments = gsub("},]", "}]", musicalInstruments)
 ```
 
+What is going on in the above? (Think about what makes "pure JSON" valid...) 
 
 ## Mass Reading
 
@@ -391,7 +423,10 @@ highest = read_html("https://en.wikipedia.org/wiki/List_of_highest-grossing_film
 ```
 
 
-And now we see why R mystifies people. What does is that bit of nonsense at the end. It is really just an index shortcut. Once you know how to use it, it is great; however, it will make you shake your head if you see it in the wild without knowing about it first.
+And now we see why R mystifies people. 
+What is that bit of nonsense at the end? 
+It is really just an index shortcut. 
+Once you know how to use it, it is great; however, it will make you shake your head if you see it in the wild without knowing about it first.
 
 This is where the benefit of <span class="pack">tidyverse</span> becomes clear. 
 
@@ -412,12 +447,8 @@ highest = read_html("https://en.wikipedia.org/wiki/List_of_highest-grossing_film
   purrr::pluck(1)
 ```
 
+
 Both functions are doing the same thing and with slightly different names, but it is crystal-clear what they are doing.
-
-Do be careful, though, because we can have some issues in function masking and <span class="func">pluck</span> from <span class="pack">purrr</span> does something very different than <span class="func">pluck</span> from <span class="pack">dplyr</span>.
-
-
-Someone try it and tell me what happens!
 
 # Selecting 
 
@@ -435,6 +466,9 @@ mtcars[, keepers]
 mtcars[, c("mpg", grep("^c", names(mtcars), values = TRUE))]
 ```
 
+What is going on in that last one? 
+"^c" is a **regular expression** which looks for column names that begin with the letter "c".
+We'll be seeing much more about regular expressions later in the week. 
 
 You can also drop variables:
 
@@ -448,7 +482,8 @@ mtcars[, !(names(mtcars) %in% dropVars)]
 
 Issues?
 
-For starters, the magic numbers are a no-go. The keepers lines could work, but would be a pain if we had a lot of variables. 
+For starters, the magic numbers are a no-go. 
+The keepers lines could work, but would be a pain if we had a lot of variables. 
 
 Let's check this wacky stuff out where we want all variables that start with "age" and variables that likely represent questions (x1, x2, x3, ...):
 
@@ -467,7 +502,8 @@ testData = testData[, keepers]
 ```
 
 
-Not only do we have another regular expression, but we also have this paste line to create variable names. It seems like too much work to do something simple!
+Not only do we have another regular expression, but we also have this paste line to create variable names. 
+It seems like too much work to do something simple!
 
 While not beautiful, these are perfectly valid ways to do this work. I have such sights to show you, but don't forget about this stuff -- you never know when you might need to use it.
 
@@ -521,6 +557,12 @@ HolzingerSwineford1939 %>%
 
 1.  Use that Stata test file.
 
+```{r, eval = FALSE}
+# from above 
+
+haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+```
+
 2.  Grab every lvi, effect, leader, and cred variable
 
 3.  Use <span class="func">summary</span> to understand your data.
@@ -541,6 +583,11 @@ data.frame(x = rnorm(10), y = rnorm(10)) %>%
   corrplot()
 ```
 
+
+## todo
+
+start here with worked example of above, then update the rest of day 1. 
+once that's done continue to the rest of the week
 
 # Subsetting/Filtering 
 
