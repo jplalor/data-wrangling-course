@@ -5,7 +5,7 @@ title: |
   | Course Overview
   
 author: |
-  | John Lalor (with thanks to Seth Berry)
+  | John Lalor
 output: pdf_document 
   #html_document:
   #  theme: flatly
@@ -19,15 +19,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Logistics
 ### Course dates 
-10/14/2019 - 10/17/2019, 9:00am - 12:15pm
+03/02/2020 - 03/05/2020, 9:00am - 12:15pm
 
 ### Course location 
-Mendoza 159
+Mendoza 160
 
 ### Instructor
 **John Lalor**
 
-IT, Analytics, and Operations Department
+Assistant Professor of IT, Analytics, and Operations
 
 Email: [john.lalor@nd.edu](john.lalor@nd.edu)
 
@@ -56,7 +56,7 @@ Please take this opportunity to work through the code and experiment -- it is tr
 The more you interact with the code, the more you will understand how it works and how you can combine functions to make data bend to your will. 
 Work alone, in groups, ask me for help, or anything else to play with the material -- just interact with it!
 
-## Assessment
+## Assessment: Daily Checks
 
 At the end of every day, you will be given one data wrangling problem -- you will not need to provide any code for these assignments. 
 Instead, your mission is to explain how you would solve the wrangling problem. 
@@ -64,20 +64,34 @@ Coding is very important and you will be doing plenty of it, but a big part of d
 
 Your job is to explain how to get from here:
 
-![](kryptPuzzle.jpg)
+![](kryptPuzzle.jpg){width=450px}
 
 
 To here:
 
-![](most-beautiful-puzzles.jpg)
+![](most-beautiful-puzzles.jpg){width=450px}
 
 Use these daily checks to start practicing how to build your mental data wrangling palace.
 
 **These daily checks are absolutely necessary and mandatory.**
 
+## Assessment: Hackathon
 While not, strictly speaking, an assessment, our last day together is going to be a hackathon. 
-You will get into groups of 2 to 5 people, choose one of three datasets, cobble it into some shape, and give a three minute presentation. 
+You will get into groups of 3 to 5 people, choose a data set, cobble it into some shape, and give a brief presentation. 
 The probability of some breakfast treat appearing is incredibly close to 1.  
+
+### A few notes on the hackathon
+
+- You will be picking your own groups for the hackathon. Because we are only together for a week, I'm relying on you to form groups where members have a good complement of skills. 
+- Because of the schedule, I encourage each group to form early and think about possible data sets early as well. A rough outline for the week might look like what's outlined below. That said, nothing is set in stone with regards to the hackathon before Thursday. 
+  - Monday: Form groups
+  - Tuesday: Identify and explore potential data sets
+  - Wednesday: Formulate a project plan for Thursday
+  - Thursday: Hack! 
+- The hackathon outputs will be considered **group work.** I expect each group member to contribute to the final output. The following will be considered a violation of the Academic Honor Code:
+  1. Taking credit for a group project without doing the work
+  2. Attempting to claim that a group project was a solo project
+
 
 ## Schedule
 ### Day 1
@@ -121,3 +135,16 @@ The probability of some breakfast treat appearing is incredibly close to 1.
 - Brief review of data wrangling techniques and principles
 
 - Hackathon!
+
+## Course Feedback 
+
+Although we are only together for a week, I want to make sure that the course goes well for everyone. 
+To that end, I've set up an anonymous feedback form online, available at the following link: 
+
+[**Click here to access the feedback form**](https://forms.gle/btqy3dUthj9V1jZX9)
+
+Please use the form to list any comments, concerns, etc. with regards to the class. 
+I will check the form responses each day and, if necessary, addres them the following morning. 
+If there are things that you like, let me know!
+If there are things that you do not like, let me know!
+Real-time feedback will allow me to update the class so that you can benefit from the changes, along with students who will take the class in future semesters.

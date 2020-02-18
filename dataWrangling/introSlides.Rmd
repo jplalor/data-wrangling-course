@@ -1,8 +1,8 @@
 ---
 title: "Data Wrangling With R"
 subtitle: "Introduction"
-author: "John Lalor"
-date: October 14, 2019
+author: "Prof. John Lalor"
+date: March 2, 2020
 output: binb::metropolis
 #  revealjs::revealjs_presentation:
 #    css: documentCSS.css
@@ -13,6 +13,13 @@ output: binb::metropolis
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+# Welcome!
+
+# Course Outline
+
+# (Brief) R Intro
 
 ## Data Wrangling
 
@@ -42,6 +49,7 @@ y <- 6:10
 You can use either "=" or "<-".
 
 - The shortcut for "<-" is Alt + -
+  - In Rmd files, Alt + - gives you "="
 
 ## Assignment
 
@@ -83,6 +91,7 @@ ySD = sd(y)
 print(c(xMean, ySD)) 
 ```
 
+- why "c(xMean, ySD)" ?
 
 ## Combining Functions
 
