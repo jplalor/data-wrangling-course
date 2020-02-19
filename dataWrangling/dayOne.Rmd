@@ -1,6 +1,7 @@
 ---
 title: "Data Wrangling With R"
 subtitle: "Day One"
+author: "Prof. John Lalor"
 output:
   html_document:
     toc: true
@@ -14,6 +15,28 @@ output:
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE, comment = "")
 ```
+
+# Welcome to Data Wrangling with R!
+
+## Quick Admin 
+
+- Course Outline
+- Intro Slides: any questions? 
+- Introductions 
+  - Name
+  - Hometown 
+  - Best book you've read so far in 2020
+  
+## Logistics for this week
+
+This file is a knitted RMarkdown document. 
+If that sentence doesn't make sense now, it will by the end of the day. 
+We'll talk through a lot of R code this week, and I expect you to be following along on your laptop.
+
+You should open a new .R file on your laptop (call it "data_wrangling_day1.R" or something like that).
+As we go through code, you should type it out, run it, and see what happens. 
+If you run into errors, or have questions, let me know! 
+We'll figure this out together.
 
 
 # The Tidyverse
@@ -41,13 +64,14 @@ In other situations, it will help you to not be afraid to use it when situations
 
 ## Tidyverse Note
 
-If you need a lot of the tidyverse, you can load it:
+If you need a lot of the tidyverse, you can load it.
 
 ```{r eval=FALSE}
 library(tidyverse)
 ```
-
-But if you will only need a few tidyverse packages, you can load them directly.
+By a lot of the tidyverse I mean the core packages that are included in the tidyverse: [core packages](https://www.tidyverse.org/packages/). 
+If the package you need isn't in this list, you load it directly. 
+If the package you need is in this list, but it's the only one that you need, you can load it directly.
 For the next few sections we'll load each package as we need it...
 
 
@@ -63,6 +87,7 @@ library(ggplot2)
 plotDat = aggregate(diamonds$cut, by = list(cut = diamonds$cut), 
                     FUN = length)
 
+# what's happening here? 
 colnames(plotDat)[2] = "n"
 
 plotDat
@@ -119,11 +144,13 @@ ggplot(plotDat, aes(x = cut, y = n)) +
   theme_minimal()
 ```
 
-This is somewhat tricky code. We have to create a new object with the oft-muddy <span class="func">aggregate</span> and reset a column name (by magic number in an index, no less). 
+This is somewhat tricky code. 
+We have to create a new object with the oft-muddy <span class="func">aggregate</span> and reset a column name (by magic number in an index, no less). 
 
 This can be made much easier with <span class="pack">dplyr</span>:
 
 ```{r}
+# no intermediate objects between what we have (diamonds) and what we want (plot) 
 diamonds %>% 
   group_by(cut) %>% 
   summarize(n = n()) %>% 
@@ -131,11 +158,14 @@ diamonds %>%
   geom_point(aes(size = n)) +
   theme_minimal()
   
+
 ```
 
 It isn't a reduction in lines, but it is certainly clearer and follows a more logical thought process. 
 This is the whole point of the <span class="pack">tidyverse</span> (and <span class="pack">dplyr</span> specifically) -- allowing you to write how you would explain the process. 
+
 Remember the "grammar" I mentioned earlier?
+
 The <span class="pack">tidyverse</span> operations each "do" something in the pipe sequence, so you can see explicitly what is being done to your data line by line. 
 
 As an added bonus, we don't need to create a bunch of different objects to do something simple.
@@ -152,7 +182,10 @@ mtcars %>%
 
 ## On Code Golf
 
-You will often notice that a <span class="pack">dplyr</span> chunk might take a few more lines to work through than base R alone -- don't consider this as a bad thing. There will be many times in this course and in your potential work that you might think that you need to use as few lines as possible. Resist this temptation. Sometime you need to break something up into many lines and create new objects -- this ability is exactly why we use R!
+You will often notice that a <span class="pack">dplyr</span> chunk might take a few more lines to work through than base R alone -- don't consider this as a bad thing. 
+There will be many times in this course and in your potential work that you might think that you need to use as few lines as possible. 
+Resist this temptation. 
+Sometime you need to break something up into many lines and create new objects -- this ability is exactly why we use R!
 
 
 # Data Import 
@@ -167,6 +200,7 @@ Frequently, you will see nicely delimited text files that are not .csv files -- 
 Delimited files are the most straightforward in terms of importing, as long as you know what is the separating character.
 
 ```{r, eval = FALSE}
+# will take a few seconds
 read.table("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.Employment", 
            header = TRUE, sep = "\t")
 ```
@@ -174,6 +208,7 @@ read.table("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.
 Is the same as:
 
 ```{r, eval = FALSE}
+# will take a few seconds
 read.delim("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.Employment")
 ```
 
@@ -182,7 +217,7 @@ Let's check the documentation...
 
 The <span class="func">read.table()</span> function gives you added flexibility to specify many different parameters. 
 
-### Your turn
+### Your turn (YT1) 
 
 Examine the following file from SDC Platinum and read it in properly:
 
@@ -192,19 +227,26 @@ How did you do?
 
 ### Alternatives
 
-Did you notice anything about these files? They are not really very big, but they might have taken a little bit of time to read in. There have been times where people have commented that R is too slow on the read side. If you find you files are not being read quickly enough, you can try a few alternatives: <span class="pack">readr</span> and <span class="pack">data.table</span>
+Did you notice anything about these files? They are not really very big, but they might have taken a little bit of time to read in. 
+There have been times where people have commented that R is too slow on the read side. 
+If you find you files are not being read quickly enough, you can try a few alternatives: <span class="pack">readr</span> and <span class="pack">data.table</span>
 
 Try the following:
 
 ```{r, eval = FALSE}
+# notice that we have to load the library before we can use functions in it
 library(readr)
 
 readrTest = read_delim("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.Employment", 
                        delim = "\t")
+
+# why are different columns colored differently in the status output?
+# https://rdrr.io/github/tidyverse/readr/src/R/col_types.R 
 ```
 
 
 ```{r, eval = FALSE}
+# again, load the library before we can use functions in it
 library(data.table)
 
 dtTest = fread("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTrade.Employment", 
@@ -212,20 +254,28 @@ dtTest = fread("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTr
 ```
 
 
-That SDC file that might have taken a few minutes will now take just a few seconds:
+That SDC file that might have taken a few minutes will now take just a few seconds.
+Note that read_delim (and readr more generally) tries to "guess" column specifications.
+If it guesses wrong you have to provide the specs yourself (see the "col_types" argument below).
+While this takes a little more work on the front end, the result is that you get data parsed the way you want it. 
 
 ```{r, eval = FALSE}
 sdc = read_delim("https://www3.nd.edu/~sberry5/data/sdcTest.txt", 
-                 delim = "^")
+                 delim="^", quote="",
+                 col_types="DDDDDDcccnnnDDccccccccnl",
+                 locale = locale(date_format = "%m/%d/%y"))
 ```
 
 
 Pretty awesome, right?
 
-While <span class="pack">readr</span> works wonderfully on the read and write side, <span class="pack">data.table</span> is great for wrangling data that is a bit on the big side and is all together blazing fast. However, it does not shy away from confusing syntax and weird conventions. With that in mind, we won't be using it in this class, but do keep it in the back of your mind.  
+While <span class="pack">readr</span> works wonderfully on the read and write side, <span class="pack">data.table</span> is great for wrangling data that is a bit on the big side and is all together blazing fast. 
+However, it does not shy away from confusing syntax and weird conventions. 
+With that in mind, we won't be using it in this class, but do keep it in the back of your mind.  
 
 
-At times, you will get data in some proprietary format. That is when you need to turn to other places.
+At times, you will get data in some proprietary format. 
+That is when you need to turn to other places.
 
 ## Excel
 
@@ -254,21 +304,25 @@ haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 
 ## SPSS
 
-We often see the -99 added as the missing value in SPSS (of course, there is no way that -99 would ever be an actual value, right?).
 
 ```{r, eval = FALSE}
 haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav", 
-                 user_na = "-99")
-```
+                 user_na = FALSE)
 
+```
+Note: We often see the -99 added as the missing value in SPSS (of course, there is no way that -99 would ever be an actual value, right?).
+You can update the "user_na" argument to reflect your data.
 
 ## HTML
 
 Depending on your needs, reading an html table into R is getting to be too easy.
 
 ```{r, eval = FALSE}
+# load our library before using its packages
 library(rvest)
 
+
+# what is html_table doing? Let's check the help
 cpi = read_html("http://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/") %>% 
   html_table(fill = TRUE)
 ```
@@ -313,7 +367,7 @@ jsonTest = jsonlite::read_json(path = "https://www3.nd.edu/~sberry5/data/options
 
 A few questions:
 
-- What's with the double colon?
+- We've now seen it a few times, but what's with the double colon?
 - What is the simplifyVector argument for?
 - How do I find the answers to these questions??
 
@@ -323,9 +377,11 @@ You may see JSON in your group project as well.
 
 #### JSON Dangers
 
-There is JSON and then there is JSON. You might find yourself some interesting data and want to bring it in, but an error happens and you have no idea why the read_json function is telling you that the file is not JSON. 
+There is JSON and then there is JSON. 
+You might find yourself some interesting data and want to bring it in, but an error happens and you have no idea why the read_json function is telling you that the file is not JSON. 
 
-Not all JSON is pure JSON! When that is the case, you will need to create pure JSON.
+Not all JSON is pure JSON! 
+When that is the case, you will need to create pure JSON.
 
 Look at this file: https://www3.nd.edu/~sberry5/data/reviews_Musical_Instruments_5.json
 
@@ -336,6 +392,7 @@ jsonlite::validate("https://www3.nd.edu/~sberry5/data/reviews_Musical_Instrument
 ```
 
 What is wrong with this file?
+(Hint: let's compare it with the previous JSON file we saw)
 
 If we would want to read that in as true JSON, we would need to do some work:
 
@@ -369,7 +426,9 @@ myData1 = read.csv("test.csv")
 myData2 = read.csv("test2.csv")
 ```
 
-Would you want to do this for 5 files? What about 100? Or 1000? I will answer it for you: no!
+Would you want to do this for 5 files? 
+What about 100? Or 1000? 
+I will answer it for you: no!
 
 The chunks below introduce some very important functions. We are going to see <span class="func">lapply</span> again -- it is important that you learn to love the apply family!
 
@@ -379,6 +438,7 @@ The chunks below introduce some very important functions. We are going to see <s
 allFiles = list.files(path = "", all.files = TRUE, full.names = TRUE, 
                       recursive = TRUE, include.dirs = FALSE)
 
+# we'll talk more about lapply in a little bit...
 allFilesRead = lapply(allFiles, function(x) read.csv(x, stringsAsFactors = FALSE))
 
 allData = do.call("rbind", allFilesRead)
@@ -397,7 +457,8 @@ rio::import_list("", rbind = TRUE)
 
 # The Grammar Of Data
 
-One of the major aims of the <span class="pack">tidyverse</span> is to provide a clear and consistent grammar to data manipulation. This is helpful when diving deeper into the weeds. 
+One of the major aims of the <span class="pack">tidyverse</span> is to provide a clear and consistent grammar to data manipulation. 
+This is helpful when diving deeper into the weeds. 
 
 Do you remember this?
 
@@ -406,7 +467,9 @@ highest = read_html("https://en.wikipedia.org/wiki/List_of_highest-grossing_film
   html_table(fill = TRUE)
 ```
 
-What did we get out of this? It was a big list of data frames. If we are looking for only one thing and we know that it is the first thing, we have some options:
+What did we get out of this? 
+It was a big list of data frames. 
+If we are looking for only one thing and we know that it is the first thing, we have some options:
 
 
 ```{r, eval = FALSE}
@@ -414,7 +477,8 @@ highest = highest[[1]]
 ```
 
 
-This is great for keeping the object at first and then plucking out what we want. If you want the whole thing to be together, though, we have even more options:
+This is great for keeping the object at first and then plucking out what we want. 
+If you want the whole thing to be together, though, we have even more options:
 
 ```{r, eval = FALSE}
 highest = read_html("https://en.wikipedia.org/wiki/List_of_highest-grossing_films") %>% 
@@ -463,7 +527,7 @@ keepers = c("mpg", "cyl", "disp", "hp", "drat", "qsec", "vs")
 
 mtcars[, keepers]
 
-mtcars[, c("mpg", grep("^c", names(mtcars), values = TRUE))]
+mtcars[, c("mpg", grep("^c", names(mtcars), value = TRUE))]
 ```
 
 What is going on in that last one? 
@@ -505,13 +569,15 @@ testData = testData[, keepers]
 Not only do we have another regular expression, but we also have this paste line to create variable names. 
 It seems like too much work to do something simple!
 
-While not beautiful, these are perfectly valid ways to do this work. I have such sights to show you, but don't forget about this stuff -- you never know when you might need to use it.
+While not beautiful, these are perfectly valid ways to do this work. 
+I have such sights to show you, but don't forget about this stuff -- you never know when you might need to use it.
 
 ## dplyr
 
 We have already seen a bit of <span class="pack">dplyr</span>, but we are going to dive right into some of the functions now.
 
-In base R, we have to do some chanting to select our variables. With <span class="pack">dplyr</span>, we can just use <span class="func">select</span>: 
+In base R, we have to do some chanting to select our variables. 
+With <span class="pack">dplyr</span>, we can just use <span class="func">select</span>: 
 
 ```{r}
 mtcars %>% 
@@ -553,7 +619,7 @@ HolzingerSwineford1939 %>%
 ```
 
 
-## Your Turn!
+## Your Turn! (YT2) 
 
 1.  Use that Stata test file.
 
@@ -577,6 +643,7 @@ haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 # Just to give you an idea about how it works!
 
 install.packages("corrplot")
+library(corrplot)
 
 data.frame(x = rnorm(10), y = rnorm(10)) %>% 
   cor() %>% 
@@ -584,14 +651,10 @@ data.frame(x = rnorm(10), y = rnorm(10)) %>%
 ```
 
 
-## todo
-
-start here with worked example of above, then update the rest of day 1. 
-once that's done continue to the rest of the week
-
 # Subsetting/Filtering 
 
-One of the more frequent tasks is related to filtering/subsetting your data. You often want to impose some types of rules on your data (e.g., US only, date ranges).
+One of the more frequent tasks is related to filtering/subsetting your data. 
+You often want to impose some types of rules on your data (e.g., US only, date ranges).
 
 ## Base
 
@@ -643,7 +706,7 @@ mtcars %>%
 ```
 
 
-## Your Turn
+## Your Turn (YT3) 
 
 For now, we are going to stick with that stataExample data. 
 
@@ -675,11 +738,14 @@ mtcars = mtcars %>%
 ```
 
 
-There is also <span class="func">transmute</span>. Can anyone venture a guess as to what it might do?
+There is also <span class="func">transmute</span>. 
+Can anyone venture a guess as to what it might do?
+
 
 ## Base Recoding
 
-You will need to recode variables at some point. Depending on the nature of the recode it can be easy (e.g., to reverse code a scale, you just subtract every value by max value + 1).
+You will need to recode variables at some point. 
+Depending on the nature of the recode it can be easy (e.g., to reverse code a scale, you just subtract every value by max value + 1).
 
 You will need to do some more elaborate stuff:
 
@@ -717,7 +783,7 @@ mtcars$vs = ifelse(mtcars$vs == 0, "v", "s")
 recode(mtcars$vs, `0` = "v", `1` = "s")
 ```
 
-## Your Turn!
+## Your Turn! (YT4) 
 
 1.  For the sake of demonstration, select only the first 10 lvi variables and everything else.
 
@@ -742,13 +808,15 @@ data.frame(x = rnorm(10), y = rnorm(10)) %>%
 
 # Communication
 
-We won't have any big end-of-day wrap exercises to do today. Instead, we are going to learn just a few cool things.
+We won't have any big end-of-day wrap exercises to do today. 
+Instead, we are going to learn just a few cool things.
 
 ## ggplot2
 
 We already saw some <span class="pack">ggplot2</span>, but let's take a few minutes to dive into it a bit more.
 
-Just like everything else in the <span class="pack">tidyverse</span>, <span class="pack">ggplot2</span> provides a clear and consistent grammar, except the focus is on data visualization. With <span class="pack">ggplot2</span>, we can stack layer after layer into the plotting space to help visualize our data.
+Just like everything else in the <span class="pack">tidyverse</span>, <span class="pack">ggplot2</span> provides a clear and consistent grammar, except the focus is on data visualization. 
+With <span class="pack">ggplot2</span>, we can stack layer after layer into the plotting space to help visualize our data.
 
 Let's take a look at some good <span class="pack">ggplot2</span> layering:
 
@@ -812,7 +880,8 @@ ggplot(testData, aes(x7, ageyr)) +
 
 We could keep going forever and tweak anything that you could imagine (labels, ticks, etc.), but this should give you a pretty good idea about what you can do with regard to static plots.
 
-Oh...but we don't have to stick with just static plots. We can use the <span class="pack">plotly</span> package to make our ggplot object interactive.
+Oh...but we don't have to stick with just static plots. 
+We can use the <span class="pack">plotly</span> package to make our ggplot object interactive.
 
 ```{r}
 library(plotly)
@@ -830,15 +899,20 @@ ggplotly(radPlot)
 
 You can also build plots with <span class="pack">plotly</span>, but we will save that for another day in the future.
 
-Learning to use <span class="pack">ggplot2</span> will pay great dividends -- there is absolutely **nothing** better for creating visualizations. There is even a whole group of packages that do nothing but add stuff into it.
+Learning to use <span class="pack">ggplot2</span> will pay great dividends -- there is absolutely **nothing** better for creating visualizations. 
+There is even a whole group of packages that do nothing but add stuff into it.
 
 ## DT
 
-Visualizations are great and they often tell a better story than tables. Sometimes, though, you want to give people a glimpse of the data. The <span class="pack">DT</span> package let's you create interactive data tables (they are JS data tables). 
+Visualizations are great and they often tell a better story than tables. 
+Sometimes, though, you want to give people a glimpse of the data. 
+The <span class="pack">DT</span> package let's you create interactive data tables (they are JS data tables). 
 
 You could give people the entire data to explore:
 
 ```{r, eval = FALSE}
+# install if necessary
+# install.packages("DT")
 library(DT)
 
 datatable(testData)
@@ -860,6 +934,9 @@ We don't want to get too far ahead of ourselves here -- we will see more places 
 
 ## R Markdown & Knitr
 
-Do you have a moment to hear the good word of Donald Knuth? If you want to work in a reproducible fashion <span class="rmarkdown">base</span> and <span class="pack">knitr</span> are here to help you out. The slides you saw earlier and even the document you are seeing now are all done with R Markdown. It is my hope that you will also use R Markdown for your presentations on Thursday.
+Do you have a moment to hear the good word of Donald Knuth? 
+If you want to work in a reproducible fashion <span class="rmarkdown">base</span> and <span class="pack">knitr</span> are here to help you out. 
+The slides you saw earlier and even the document you are seeing now are all done with R Markdown. 
+It is my hope that you will also use R Markdown for your presentations on Thursday.
 
 

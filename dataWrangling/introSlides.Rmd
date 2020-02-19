@@ -15,12 +15,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-# Welcome!
-
-# Course Outline
-
-# (Brief) R Intro
-
 ## Data Wrangling
 
 Data wrangling is potentially comprised of many different tasks.

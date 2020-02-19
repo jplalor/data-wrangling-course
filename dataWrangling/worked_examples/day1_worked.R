@@ -2,10 +2,18 @@ library(haven)
 library(dplyr)
 library(corrplot)
 
+
+# YT1
+D.sdc <- read.table("https://www3.nd.edu/~sberry5/data/sdcTest.txt",
+                    header=T, sep="^",
+                    comment.char = "",
+                    quote="", stringsAsFactors = F)
+
+# YT2
 testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 names(testData)
 
-# Q1
+
 testData %>%
   select(starts_with("lvi"), "effect", starts_with("leader"), starts_with("cred")) %>%
   summary()
@@ -16,7 +24,7 @@ testData %>%
   cor(., use="pairwise.complete.obs") %>% 
   corrplot()
 
-# Q2
+# YT3
 table(testData$Rater)
 testData %>%
   select("Rater", "Gender", starts_with("lvi"), "effect", starts_with("leader"), starts_with("cred")) %>%
@@ -28,7 +36,7 @@ testData %>%
   cor(., use="pairwise.complete.obs") %>%
   corrplot()
 
-# Q3
+# YT4
 testData %>%
   select(-num_range("lvi",11:48)) %>%
   filter(Rater == 0) %>%
