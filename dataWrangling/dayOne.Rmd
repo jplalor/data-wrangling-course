@@ -1,6 +1,6 @@
 ---
-title: "Data Wrangling With R"
-subtitle: "Day One"
+title: "Data Wrangling With R: Day One"
+#subtitle: "Day One"
 author: "Prof. John Lalor"
 output:
   html_document:
@@ -38,6 +38,26 @@ As we go through code, you should type it out, run it, and see what happens.
 If you run into errors, or have questions, let me know! 
 We'll figure this out together.
 
+### Thursday Hackathon
+
+- Groups: between 2-5 members, but if you have a compelling case for going solo, let me know
+- Data: You'll need something to wrangle
+- Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
+- Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
+
+For your presentation you can present:
+
+- Slides (Powerpoint OR pdf slides from an Rmd document)
+- knitted Rmd document
+
+Presentations should include:
+
+- Team name
+- Team members' names
+- Data set introduction
+- Wrangling performed (conceptual as well as tools used)
+- Final insight (tables, plots, etc.) 
+
 
 # The Tidyverse
 
@@ -49,6 +69,12 @@ tidyverse::tidyverse_logo()
 We are going to be working around in the <span class="pack">tidyverse</span> for a good chunk of our time together.
 
 [Tidyverse homepage](https://www.tidyverse.org/) 
+
+What is the <span class="pack">tidyverse</span>?
+From the homepage:
+
+> The tidyverse is an opinionated collection of R packages designed for data science. 
+> All packages share an underlying design philosophy, grammar, and data structures.
 
 The whole point of the <span class="pack">tidyverse</span> is to offer a grammar of verbs. 
 It is going to help us in a lot of the situations that we are going to be seeing.
@@ -74,6 +100,21 @@ If the package you need isn't in this list, you load it directly.
 If the package you need is in this list, but it's the only one that you need, you can load it directly.
 For the next few sections we'll load each package as we need it...
 
+# A few tips before we dive in
+
+- R help is there to help you
+
+```{r, eval=FALSE}
+library(ggplot)
+help(ggplot)
+
+# OR 
+
+?ggplot
+```
+
+- The internet is there to help you: [https://www.r-project.org/help.html](https://www.r-project.org/help.html)
+- I am here to help you! 
 
 # Some Demonstrations 
 
@@ -253,6 +294,7 @@ dtTest = fread("https://download.bls.gov/pub/time.series/ce/ce.data.42a.RetailTr
                sep = "\t")
 ```
 
+- Did you notice a difference between <span class="func">read_delim()</span> and <span class="func">fread()</span>?
 
 That SDC file that might have taken a few minutes will now take just a few seconds.
 Note that read_delim (and readr more generally) tries to "guess" column specifications.
@@ -312,6 +354,24 @@ haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
 ```
 Note: We often see the -99 added as the missing value in SPSS (of course, there is no way that -99 would ever be an actual value, right?).
 You can update the "user_na" argument to reflect your data.
+
+The user_na option in haven::read_spss affects how the NA values are stored internally. 
+If you have missing data that is missing for different reasons, sometimes it is important to take that into account. 
+For now, we can ignore it and read the data in without that option (user_na defaults to FALSE):
+
+```{r, eval = FALSE}
+haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav")
+
+
+# if you want to convert all missing values to NA:
+#haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
+#                 user_na = FALSE)
+
+# if your missing values are meaningful and distinct:
+#haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
+#                 user_na = TRUE)
+```
+
 
 ## HTML
 
@@ -453,7 +513,9 @@ You can also use <span class="pack">rio</span>:
 rio::import_list("", rbind = TRUE)
 ```
 
+# Break (20 minutes) 
 
+Get some coffee, stretch your legs, start thinking about group members for Thursday's hackathon. 
 
 # The Grammar Of Data
 
@@ -585,7 +647,7 @@ mtcars %>%
 ```
 
 
-We can also drop variables with the <span class="func">-</span>:
+We can also drop variables with the minus sign (<span class="func">-</span>):
 
 ```{r}
 mtcars %>% 
@@ -718,93 +780,9 @@ For now, we are going to stick with that stataExample data.
 
 4.  Throw the Gender variable in and filter on that.
 
-# New Variables and Recoding 
 
-## Base
+# Break 
 
-Adding a new variable in <span class="pack">base</span> R is as easy as the following:
-
-```{r}
-mtcars$roundedMPG = round(mtcars$mpg)
-```
-
-## dplyr
-
-If, however, we want to do things in a tidy chunk, we need to use <span class="func">mutate</span>.
-
-```{r}
-mtcars = mtcars %>% 
-  mutate(roundedMPG = round(mpg))
-```
-
-
-There is also <span class="func">transmute</span>. 
-Can anyone venture a guess as to what it might do?
-
-
-## Base Recoding
-
-You will need to recode variables at some point. 
-Depending on the nature of the recode it can be easy (e.g., to reverse code a scale, you just subtract every value by max value + 1).
-
-You will need to do some more elaborate stuff:
-
-```{r, eval = FALSE}
-
-mtcars$mpgLoHi = 0
-
-mtcars$mpgLoHi[mtcars$mpg > median(mtcars$mpg)] = 1
-```
-
-
-```{r, eval = FALSE}
-mtcars$mpgLoHi = ifelse(mtcars$mpg > median(mtcars$mpg), 1, 0)
-```
-
-These are pretty good ways to do recoding of this nature, but what about this:
-
-```{r, eval = FALSE}
-mtcars$vs[which(mtcars$vs == 0)] = "v"
-
-mtcars$vs[which(mtcars$vs == 1)] = "s"
-```
-
-
-Or this:
-
-```{r, eval = FALSE}
-mtcars$vs = ifelse(mtcars$vs == 0, "v", "s")
-```
-
-
-## dplyr recoding
-
-```{r, eval = FALSE}
-recode(mtcars$vs, `0` = "v", `1` = "s")
-```
-
-## Your Turn! (YT4) 
-
-1.  For the sake of demonstration, select only the first 10 lvi variables and everything else.
-
-2.  Keep only observations with Rater == 0. 
-
-3.  Assume that the first 5 lvi variables (01 through 05) are scores for one assessment and the next five (06 through 10) are scores for another assessment.
-
-4.  Create two new variables to capture the mean of those scores.
-
-  - You will need to use the <span class="func">rowwise</span> function ahead of mutate.
-  
-  - You can use the <span class="func">mean</span> function, but you will have to wrap the variables in <span class="func">c()</span>
-
-
-```{r, eval = FALSE}
-# Just to help you along!
-
-data.frame(x = rnorm(10), y = rnorm(10)) %>% 
-  rowwise() %>% 
-  mutate(test = mean(c(x, y)))
-```
 
 # Communication
 
@@ -837,6 +815,9 @@ Next, we can add some color:
 ggplot(testData, aes(x7, ageyr)) +
   geom_point(aes(color = as.factor(grade)), alpha = .75)
 ```
+
+Quick aside: Why is it the case that certain arguments (e.g. color) are inside aes() while others (e.g. alpha) are not?
+
 
 Now, we can add a smooth line:
 

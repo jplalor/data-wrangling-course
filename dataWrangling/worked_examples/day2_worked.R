@@ -1,8 +1,16 @@
 library(haven)
 library(dplyr)
 
+# YT1 
+testData %>%
+  select(-num_range("lvi",11:48)) %>%
+  filter(Rater == 0) %>%
+  rowwise() %>% 
+  mutate(mean1 = mean(c(lvi01, lvi02,lvi03, lvi04,lvi05), na.rm=TRUE),
+         mean2 = mean(c(lvi06, lvi07,lvi08, lvi09,lvi10), na.rm=TRUE)) %>% 
+  select(mean1, mean2)
 
-# Q1
+# YT2
 stataExample <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 names(stataExample)
 
@@ -20,7 +28,7 @@ stataExample %>%
   summarise(n = n_distinct(leaderID))
 
 
-# Q2
+# YT3
 # star wars data 
 
 library(tidyr)
@@ -57,30 +65,25 @@ starwars %>%
   geom_point() + 
   theme_minimal()
 
+
+# YT4 
 library(haven)
 library(readr)
 merge1 = "https://www3.nd.edu/~sberry5/data/merge1Company.dta"
 merge2Hoberg = "https://www3.nd.edu/~sberry5/data/merge2Hoberg.txt"
-
-#can skip this for now as it's a very large file
-#merge3McDonald = "https://www3.nd.edu/~sberry5/data/merge3McDonald.csv"
 sasExample = "https://www3.nd.edu/~sberry5/data/wciklink_gvkey.sas7bdat"
 
 m1 = haven::read_dta(merge1)
 m2 = readr::read_delim(merge2Hoberg, "\t")
 
-# again, skip for now
-#m3 = readr::read_csv(merge3McDonald, ",", n_max = 100)
 m4 = haven::read_sas(sasExample)
 
 names(m1)
 names(m2)
-#names(m3)
 names(m4)
 
 head(m1)
 head(m2)
-#head(m3)
 head(m4)
 
 m1$gvkey = as.numeric(m1$gvkey)
@@ -90,14 +93,17 @@ left_join(m1, m2, by=c("gvkey"))
 
 anti_join(m1, m2, by=c("gvkey"))
 
+
+# regex
+
 realComments = c("I love wrangling data", "strings r fun", 
-                 "This guy is a stooge", "Can't we use excel?")
+                 "I wish it were break", "Can't we use excel?")
 
 grep(pattern = "\\b[a-z]{2}\\b", x = realComments, value=TRUE)
 grepl(pattern = "\\b[a-z]{2}\\b", x = realComments)
 
 
-
+# YT5 
 # movie data
 library(rvest)
 highest = read_html("https://en.wikipedia.org/wiki/List_of_highest-grossing_films") %>% 

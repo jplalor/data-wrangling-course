@@ -1,6 +1,6 @@
 ---
-title: "Data Wrangling With R"
-subtitle: "Day Two"
+title: "Data Wrangling With R: Day Two"
+author: "Prof. John Lalor"
 output:
   html_document:
     toc: true
@@ -18,40 +18,98 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 
 # Day 1 Followup
 
-## SPSS and Haven
-The user_na option in haven::read_spss affects how the NA values are stored internally. If you have missing data that is missing for different reasons, sometimes it is important to take that into account. For now, we can ignore it and read the data in without that option (user_na defaults to FALSE):
-
-```{r, eval = FALSE}
-haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav")
+TBD
 
 
-# if you want to convert all missing values to NA:
-#haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
-#                 user_na = FALSE)
+# New Variables and Recoding 
 
-# if your missing values are meaningful and distinct:
-#haven::read_spss(file = "https://www3.nd.edu/~sberry5/data/spssExample.sav",
-#                 user_na = TRUE)
-```
+## Base
 
-## Question about Argument Placement
-Remember this?
+Adding a new variable in <span class="pack">base</span> R is as easy as the following:
 
 ```{r}
-library(ggplot2)
-
-library(lavaan)
-
-testData = HolzingerSwineford1939
-
-ggplot(testData, aes(x7, ageyr)) +
-  geom_point(aes(color = as.factor(grade)), alpha = .75)
+mtcars$roundedMPG = round(mtcars$mpg)
 ```
 
-Why is it the case that certain arguments (e.g. color) are inside aes() while others (e.g. alpha) are not?
+## dplyr
 
-## Day 1 Exercises Revisited
-Let's look at one way of working through them.
+If, however, we want to do things in a tidy chunk, we need to use <span class="func">mutate</span>.
+
+```{r}
+library(dplyr) 
+mtcars = mtcars %>% 
+  mutate(roundedMPG = round(mpg))
+```
+
+
+There is also <span class="func">transmute</span>. 
+Can anyone venture a guess as to what it might do?
+
+
+## Base Recoding
+
+You will need to recode variables at some point. 
+Depending on the nature of the recode it can be easy (e.g., to reverse code a scale, you just subtract every value by max value + 1).
+
+You will need to do some more elaborate stuff:
+
+```{r, eval = FALSE}
+
+mtcars$mpgLoHi = 0
+
+mtcars$mpgLoHi[mtcars$mpg > median(mtcars$mpg)] = 1
+```
+
+
+```{r, eval = FALSE}
+mtcars$mpgLoHi = ifelse(mtcars$mpg > median(mtcars$mpg), 1, 0)
+```
+
+These are pretty good ways to do recoding of this nature, but what about this:
+
+```{r, eval = FALSE}
+mtcars$vs[which(mtcars$vs == 0)] = "v"
+
+mtcars$vs[which(mtcars$vs == 1)] = "s"
+```
+
+
+Or this:
+
+```{r, eval = FALSE}
+mtcars$vs = ifelse(mtcars$vs == 0, "v", "s")
+```
+
+
+## dplyr recoding
+
+```{r, eval = FALSE}
+recode(mtcars$vs, `0` = "v", `1` = "s")
+```
+
+## Your Turn! (YT1) 
+
+1.  For the sake of demonstration, select only the first 10 lvi variables and everything else.
+
+2.  Keep only observations with Rater == 0. 
+
+3.  Assume that the first 5 lvi variables (01 through 05) are scores for one assessment and the next five (06 through 10) are scores for another assessment.
+
+4.  Create two new variables to capture the mean of those scores.
+
+  - You will need to use the <span class="func">rowwise</span> function ahead of mutate.
+  
+  - You can use the <span class="func">mean</span> function, but you will have to wrap the variables in <span class="func">c()</span>
+
+
+```{r, eval = FALSE}
+# Just to help you along!
+
+data.frame(x = rnorm(10), y = rnorm(10)) %>% 
+  rowwise() %>% 
+  mutate(test = mean(c(x, y)))
+```
+
 
 # Summarizing And Grouping
 
@@ -99,7 +157,7 @@ mtcars %>%
 
 You are not limited to single <span class="func">group_by statements</span>!
 
-## Your Turn
+## Your Turn (YT2) 
 
 1.  Use the stataData again:
 
@@ -293,7 +351,7 @@ In addition to reshaping, <span class="pack">tidyr</span> has some handy functio
 
 While we won't dive into it, the <span class="pack">splitstackshape</span> package is very handy for reshaping. It also has additional uses for column manipulations
 
-## Your Turn
+## Your Turn (YT3) 
 
 Spend some time pivoting different subsets of the starwards data set. 
 What can you filter on/select/plot?
@@ -400,16 +458,14 @@ I didn't mention the anti join before! It does exactly what it sounds like -- it
 antiTest = anti_join(merge1, sasExample, by = c("gvkey"))
 ```
 
-## Your Turn!
+## Your Turn! (YT4)
 
-Let's look at these four files:
+Let's look at these three files:
 
 ```{r, eval = FALSE}
 merge1 = "https://www3.nd.edu/~sberry5/data/merge1Company.dta"
 
 merge2Hoberg = "https://www3.nd.edu/~sberry5/data/merge2Hoberg.txt"
-
-merge3McDonald = "https://www3.nd.edu/~sberry5/data/merge3McDonald.csv"
 
 sasExample = "https://www3.nd.edu/~sberry5/data/wciklink_gvkey.sas7bdat"
 
@@ -483,7 +539,7 @@ Others take some intense trial and error: \\(*[0-9]{3}.*[0-9]{3}.*[0-9]{4}
 
 Learning just a little and being able to use them in a variety of settings is most helpful.
 
-Learning regular expressions in R is a bit tough, so let's go here: regexr.com
+Learning regular expressions in R is a bit tough, so let's go here: [regexr.com](regexr.com)
 
 
 ## stringr
@@ -504,11 +560,11 @@ There is also the issue of mixed arguments. Consider grep and gsub. We'll explic
 
 ```{r}
 realComments = c("I love wrangling data", "strings r fun", 
-                 "This guy is a stooge", "Can't we use excel?")
+                 "I wish it were break", "Can't we use excel?")
 
 grep(pattern = "\\b[a-z]{2}\\b", x = realComments, value = TRUE)
 
-gsub(pattern = "(hack)", replacement = "star", x = realComments)
+gsub(pattern = "(excel)", replacement = "python", x = realComments)
 ```
 
 
@@ -579,6 +635,8 @@ If you have not worked with regular expressions before today, you might be wonde
 ![](http://imgs.xkcd.com/comics/backslashes.png)
 
 
+## Your Turn (YT5)
+
 Did you notice "Peak" too? Why don't you handle that one?
 
 ## On Names, Regex, & Merging
@@ -610,9 +668,10 @@ names(testDF2) = stringr::str_replace_all(names(testDF2), "\\.|_|\\W", "")
 
 
 
-# Github
+# GitHub
 
-Github is an online version of Git. Git can be used as a repository, but its greatest power is in collaboration.
+GitHub is an online version of Git. 
+Git can be used as a repository, but its greatest power is in collaboration.
 
 I'd encourage you to check out the following to learn more about Git and GitHub:
 
@@ -628,3 +687,25 @@ Specifically, think about (and the discuss):
 - A data set that you've worked with, a data set you would like to work with, or a business problem that you have come across where a large (and possibly messy) data set would be useful for solving the problem.
 - What steps would you need to do to get something out of the data? *Something* here is intentionally vague, and could refer to summary statistics, visualizations, subsets of the data, or something else. Steps here should be tool-agnostic.
 - What tools would you use to accomplish the goals in the previous step? If you have come up with steps that involve tools we haven't covered, I encourage you to browse through the rest of the [tidyverse](https://www.tidyverse.org/packages/). 
+
+
+
+# Thursday Hackathon Reminder
+
+- Groups: between 2-5 members, but if you have a compelling case for going solo, let me know
+- Data: You'll need something to wrangle
+- Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
+- Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
+
+For your presentation you can present:
+
+- Slides (Powerpoint OR pdf slides from an Rmd document)
+- knitted Rmd document
+
+Presentations should include:
+
+- Team name
+- Team members' names
+- Data set introduction
+- Wrangling performed (conceptual as well as tools used)
+- Final insight (tables, plots, etc.) 

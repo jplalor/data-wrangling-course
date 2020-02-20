@@ -56,7 +56,7 @@ Please take this opportunity to work through the code and experiment -- it is tr
 The more you interact with the code, the more you will understand how it works and how you can combine functions to make data bend to your will. 
 Work alone, in groups, ask me for help, or anything else to play with the material -- just interact with it!
 
-## Assessment: Daily Checks
+## Daily Checks
 
 At the end of every day, you will be given one data wrangling problem -- you will not need to provide any code for these assignments. 
 Instead, your mission is to explain how you would solve the wrangling problem. 
@@ -73,9 +73,7 @@ To here:
 
 Use these daily checks to start practicing how to build your mental data wrangling palace.
 
-**These daily checks are absolutely necessary and mandatory.**
-
-## Assessment: Hackathon
+## Hackathon
 While not, strictly speaking, an assessment, our last day together is going to be a hackathon. 
 You will get into groups of 3 to 5 people, choose a data set, cobble it into some shape, and give a brief presentation. 
 The probability of some breakfast treat appearing is incredibly close to 1.  
@@ -88,13 +86,25 @@ The probability of some breakfast treat appearing is incredibly close to 1.
   - Tuesday: Identify and explore potential data sets
   - Wednesday: Formulate a project plan for Thursday
   - Thursday: Hack! 
-- The hackathon outputs will be considered **group work.** I expect each group member to contribute to the final output. The following will be considered a violation of the Academic Honor Code:
-  1. Taking credit for a group project without doing the work
-  2. Attempting to claim that a group project was a solo project
+- The hackathon outputs will be considered **group work.** I expect each group member to contribute to the final output. 
 
+## Course Feedback 
+
+Although we are only together for a week, I want to make sure that the course goes well for everyone. 
+To that end, I've set up an anonymous feedback form online, available at the following link: 
+
+[**Click here to access the feedback form**](https://forms.gle/btqy3dUthj9V1jZX9)
+
+Please use the form to list any comments, concerns, etc. with regards to the class. 
+I will check the form responses each day and, if necessary, address them the following morning. 
+If there are things that you like, let me know!
+If there are things that you do not like, let me know!
+Real-time feedback will allow me to update the class so that you can benefit from the changes, along with students who will take the class in future semesters.
 
 ## Schedule
 ### Day 1
+
+- Introduction
 
 - Importing data (cooler than you think it will be)
 
@@ -102,11 +112,11 @@ The probability of some breakfast treat appearing is incredibly close to 1.
 
 - Subsetting and filtering
 
-- New variable creation and recoding
-
 - Presentation and reproducibility
 
 ### Day 2
+
+- New variable creation and recoding
 
 - Reshaping
 
@@ -136,15 +146,3 @@ The probability of some breakfast treat appearing is incredibly close to 1.
 
 - Hackathon!
 
-## Course Feedback 
-
-Although we are only together for a week, I want to make sure that the course goes well for everyone. 
-To that end, I've set up an anonymous feedback form online, available at the following link: 
-
-[**Click here to access the feedback form**](https://forms.gle/btqy3dUthj9V1jZX9)
-
-Please use the form to list any comments, concerns, etc. with regards to the class. 
-I will check the form responses each day and, if necessary, addres them the following morning. 
-If there are things that you like, let me know!
-If there are things that you do not like, let me know!
-Real-time feedback will allow me to update the class so that you can benefit from the changes, along with students who will take the class in future semesters.

@@ -1,7 +1,6 @@
 ---
-title: | 
-      | Data Wrangling With R
-      | Day Four
+title: "Data Wrangling With R: Day Four"
+author: "Prof. John Lalor"
 output:
   html_document:
     toc: true
@@ -69,7 +68,7 @@ Possible sources of inspiration:
 - [Possibly outdated list of R sports data (but a good place to start) packages](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/)
 
 
-Just a note on the last two links above, if you are using data that is alreay loaded in an R package, that is (potentially) fine, but I'll expect that there will be extra work on the downstream tasks to make up for the fact that the data is already in R. 
+Just a note on the last two links above, if you are using data that is already loaded in an R package, that is (potentially) fine, but I'll expect that there will be extra work on the downstream tasks to make up for the fact that the data is already in R. 
 
 ## Your turn
 

@@ -1,7 +1,6 @@
 ---
-title: | 
-      | Data Wrangling With R
-      | Day Three
+title: "Data Wrangling With R: Day Three"
+author: "Prof. John Lalor"
 output:
   html_document:
     toc: true
@@ -22,14 +21,18 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 ## Plan for the next two days
 
 # Day 3 Intro
-From what we've covered so far, you should be in a good position to wrangle a lot of different types of data. The tools from Days 1 and 2 will get you very far. Today we'll look at some interesting things for specific types of data, then wrap back around to some more common R techniques, and wrap up with preparation for tomorrow's hackathon. We'll be making teams and (starting to) select data sets for tomorrow at the end of today's class, so start thinking about potential teammates (2-4 students per team), team names, and data set ideas.
+From what we've covered so far, you should be in a good position to wrangle a lot of different types of data. 
+The tools from Days 1 and 2 will get you very far. 
+Today we'll look at some interesting things for specific types of data, then wrap back around to some more common R techniques, and wrap up with preparation for tomorrow's hackathon. 
+We'll be making teams and (starting to) select data sets for tomorrow at the end of today's class, so start thinking about potential teammates (2-4 students per team), team names, and data set ideas.
 
 
 # Fuzzy Joins 
 
 We have seen joins and some character work, but now we are going to combine them into one world.
 
-Whenever we use joins we are generally looking for exact matches. In reality, we get about 50/50.
+Whenever we use joins we are generally looking for exact matches. 
+In reality, we get about 50/50.
 
 Fuzzy joins allow us to use string distance metrics to join non-matching strings together.
 
@@ -46,7 +49,9 @@ devtools::install_github("dgrtwo/fuzzyjoin")
 
 Not including spelling mistakes, there are many different ways to represent words; this is especially true when we are discussing companies.
 
-Would AG Edwards and A.G. Edwards join? Of course not! They are the same company, but not the same words.
+Would AG Edwards and A.G. Edwards join? 
+Of course not! 
+They are the same company, but not the same words.
 
 We have learned enough about string cleaning to know that we could tidy that one up, but what about something more subtle, like AG Edward and AG Edwards. 
 
@@ -60,7 +65,8 @@ string2 = "AG Edwards"
 adist(x = string1, y = string2)
 ```
 
-The <span class="func">adist</span> function uses generalized edit distance as the metric. This does things like calculate the number of characters that need to be inserted, deleted, or substituted to make a match. 
+The <span class="func">adist</span> function uses generalized edit distance as the metric. 
+This does things like calculate the number of characters that need to be inserted, deleted, or substituted to make a match. 
 
 If we are merging, generalized edit distance might not give use the level of granularity that we need for minimizing.
 
@@ -104,7 +110,8 @@ stringdist(string1, string3, method = "jaccard")
 ```
 
 
-You might be wondering why we need much granularity. Consider what happens between Safeway and Subway:
+You might be wondering why we need much granularity. 
+Consider what happens between Safeway and Subway:
 
 ```{r}
 stringdist("safeway", "subway", method = "soundex")
@@ -117,7 +124,8 @@ stringdist("safeway", "subway", method = "jw")
 
 I think we can imagine the consequences of using metrics like soundex or Jaccard distance to join strings together.
 
-So, is there a good time to use something like soundex: sure. If you find yourself needing to find any possible word matches.
+So, is there a good time to use something like soundex: sure. 
+If you find yourself needing to find any possible word matches.
 
 ## Fuzzy Joins
 
@@ -171,7 +179,8 @@ fuzzyStuff = fuzzyjoin::stringdist_inner_join(fuzzyJoinClients, fuzzyJoinCompust
 
 
 ## Your turn
-Spend some time doing fuzzy joins on these two data sets. Vary the join type, distance metric, and threshold. 
+Spend some time doing fuzzy joins on these two data sets. 
+Vary the join type, distance metric, and threshold. 
 
 # Tips & Tricks 
 
@@ -238,7 +247,8 @@ mdy(date3)
 ```
 
 
-There is some really great stuff in <span class="pack">lubridate</span>. For instance, if you need to get time intervals:
+There is some really great stuff in <span class="pack">lubridate</span>. 
+For instance, if you need to get time intervals:
 
 ```{r}
 
@@ -252,7 +262,8 @@ exactAge = function(birthday,
 
 ```
 
-Run that and give it your birthday in "YEAR-MO-DY" format. While it might be goofy at first glance, can we think of anything practical for it?
+Run that and give it your birthday in "YEAR-MO-DY" format. 
+While it might be goofy at first glance, can we think of anything practical for it?
 
 
 There is a similar package, <span class="pack">hms</span>, for dealing with time.
@@ -260,7 +271,8 @@ There is a similar package, <span class="pack">hms</span>, for dealing with time
 
 ## Lists
 
-Lists are just a part of life at this point. You will see lists of data frames and you will see columns within data frames that contain lists.
+Lists are just a part of life at this point. 
+You will see lists of data frames and you will see columns within data frames that contain lists.
 
 If you recall our previous look at JSON, you will see that there is a variable that actually contains a list.
 
@@ -375,9 +387,11 @@ jsonWhole = cbind(jsonWhole, spreadData) %>%
 
 ## Functions
 
-I genuinely hope you learned a lot from our time together; however, if you only learn one thing, I hope that you feel empowered to write your own functions. For all of R's greatness, writing your own functions is what really makes it work so well. 
+I genuinely hope you learned a lot from our time together; however, if you only learn one thing, I hope that you feel empowered to write your own functions. 
+For all of R's greatness, writing your own functions is what really makes it work so well. 
 
-You might not feel like you can write a function -- we all feel that way at some point. You can!
+You might not feel like you can write a function -- we all feel that way at some point. 
+You can!
 
 Functions are simply objects that act upon other objects. 
 
@@ -444,7 +458,9 @@ testFunc = function(x) {
 
 ## Apply Family
 
-We have seen a lot of different things over the last few hours together. The final bit of wisdom to pass along is the apply family. The apply family (lapply, sapply, mapply, etc.) allows you to pass a function over something like a list and then return something predictable. 
+We have seen a lot of different things over the last few hours together. 
+The final bit of wisdom to pass along is the apply family. 
+The apply family (lapply, sapply, mapply, etc.) allows you to pass a function over something like a list and then return something predictable. 
 
 ```{r}
 testNames = c("Jack", "Jill", "Frank", "Steve", "Harry", "Lloyd")
@@ -454,7 +470,9 @@ sapply(testNames, function(x) paste(x, "went over the hill", sep = " "))
 
 The sapply function will return a vector -- what do you think an lapply will return? mapply? Take a look at the documentation.
 
-Now that is a bit of a goofy example. Since R is vectorized, we would have gotten the same result just by pasting our testNames vector to the string. But, a more realistic situation is as follows:
+Now that is a bit of a goofy example. 
+Since R is vectorized, we would have gotten the same result just by pasting our testNames vector to the string. 
+But, a more realistic situation is as follows:
 
 
 
