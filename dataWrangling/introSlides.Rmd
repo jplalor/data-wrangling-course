@@ -21,12 +21,6 @@ Data wrangling is potentially comprised of many different tasks.
 
 At the end of the day, we are trying to create data rectangles.
 
-## 
-
-If you have used R before, you can completely ignore me for the next few minutes. 
-
-  - Wait for the signal to return your attention!
-
 
 ## Basics: Quickly
 
