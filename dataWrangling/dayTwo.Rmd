@@ -711,6 +711,8 @@ Learning just a little and being able to use them in a variety of settings is mo
 
 Learning regular expressions in R is a bit tough, so let's go here: http://www.regexr.com
 
+### regex examples 
+
 
 ## stringr
 
@@ -735,10 +737,18 @@ realComments = c("I love wrangling data", "strings r fun",
 grep(pattern = "\\b[a-z]{2}\\b", x = realComments, value = TRUE)
 
 gsub(pattern = "(excel)", replacement = "python", x = realComments)
+
+# this works, but what's what??
+gsub(pattern = "(excel)", "python", realComments)
+
 ```
 
+> What does grep stand for?
 
-It is pretty subtle, but the argument order can be a bit troublesome when you are just learning or have not used them in a while. 
+- Global regular expression print
+
+See how the specific arguments are slightly different?
+It is pretty subtle, but can be a bit troublesome when you are just learning or have not used them in a while. 
 
 Check these out:
 
@@ -807,7 +817,8 @@ If you have not worked with regular expressions before today, you might be wonde
 
 ## Your Turn (YT6)
 
-Did you notice "Peak" too? Why don't you handle that one?
+Did you notice the "Peak" column too? 
+Why don't you handle that one?
 
 ## On Names, Regex, & Merging
 
@@ -820,7 +831,7 @@ If it is just a matter of case mismatch, this works:
 ```{r, eval = FALSE}
 testDF = data.frame(camelCase = 1:10, 
                     normalName = 1:10, 
-                    wHyGoDwHy = 1:10)
+                    wHyOhwHy = 1:10)
 
 names(testDF) = stringr::str_to_lower(names(testDF))
 ```
@@ -836,7 +847,17 @@ testDF2 = data.frame(peopleDoThis7 = 1:10,
 names(testDF2) = stringr::str_replace_all(names(testDF2), "\\.|_|\\W", "") 
 ```
 
+# Break 
 
+## Regex resources
+
+- https://regexone.com/ 
+- https://regexr.com/ 
+- [regex cheatcheet](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) 
+
+So many more online. 
+Regular expressions are incredibly powerful, and incredibly difficult to master. 
+But they certainly get <s>easier</s> less impossible the more you use them.
 
 # GitHub
 
@@ -856,7 +877,7 @@ Specifically, think about (and the discuss):
 
 - A data set that you've worked with, a data set you would like to work with, or a business problem that you have come across where a large (and possibly messy) data set would be useful for solving the problem.
 - What steps would you need to do to get something out of the data? *Something* here is intentionally vague, and could refer to summary statistics, visualizations, subsets of the data, or something else. Steps here should be tool-agnostic.
-- What tools would you use to accomplish the goals in the previous step? If you have come up with steps that involve tools we haven't covered, I encourage you to browse through the rest of the [tidyverse](https://www.tidyverse.org/packages/). 
+- What tools (*verbs*) would you use to accomplish the goals in the previous step? If you have come up with steps that involve tools we haven't covered, I encourage you to browse through the rest of the [tidyverse](https://www.tidyverse.org/packages/). 
 
 
 
