@@ -105,7 +105,7 @@ For the next few sections we'll load each package as we need it...
 - R help is there to help you
 
 ```{r, eval=FALSE}
-library(ggplot)
+library(ggplot2)
 help(ggplot)
 
 # OR 
@@ -513,7 +513,7 @@ You can also use <span class="pack">rio</span>:
 rio::import_list("", rbind = TRUE)
 ```
 
-# Break (20 minutes) 
+# Break
 
 Get some coffee, stretch your legs, start thinking about group members for Thursday's hackathon. 
 
