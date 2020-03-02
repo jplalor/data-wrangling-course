@@ -1,6 +1,6 @@
 ---
 title: "Data Wrangling With R: Day Two"
-author: "Prof. John Lalor"
+author: "Professor Lalor"
 output:
   html_document:
     toc: true
@@ -18,7 +18,168 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 
 # Day 1 Followup
 
-TBD
+## Facets
+
+> What's the difference between <span class="func">facet_grid</span> and <span class="func">facet_wrap</span>? 
+
+```{r}
+library(ggplot2) 
+g <- ggplot(mpg, aes(displ, hwy))
+
+g + geom_point(alpha=1/3) + facet_grid(cyl~class)
+```
+ 
+
+Compare this with
+
+```{r}
+
+g <- ggplot(mpg, aes(displ, hwy))
+
+g + geom_point(alpha=1/3) + facet_wrap(cyl~class)
+```
+
+More info:
+
+- http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/
+
+- http://www.sthda.com/english/wiki/ggplot2-facet-split-a-plot-into-a-matrix-of-panels
+
+- https://stackoverflow.com/questions/20457905/whats-the-difference-between-facet-wrap-and-facet-grid-in-ggplot2 
+
+
+## Data frame subtitles
+
+```{r}
+
+testdata <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+
+attributes(testdata$Rater) 
+
+attr(testdata$Rater, "label")
+
+
+```
+
+- more info: https://haven.tidyverse.org/reference/read_dta.html 
+
+
+## Finding data sets for the hackathon
+
+Where are they?
+
+How do I find them? 
+
+How do I download them? 
+
+Possible sources of inspiration:
+
+- [Kaggle](https://www.kaggle.com/datasets)
+- [Data.gov](https://www.data.gov/open-gov/) 
+- [Text data!](https://github.com/niderhoff/nlp-datasets) 
+- [R packages that implement data sets](https://www.computerworld.com/article/3109890/these-r-packages-import-sports-weather-stock-data-and-more.html)
+- [Possibly outdated list of R sports data (but a good place to start) packages](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/)
+- [Harry Potter](https://github.com/bradleyboehmke/harrypotter) 
+
+Just a note on the last three links above, if you are using data that is alreay loaded in an R package, that is (potentially) fine, but I'll expect that there will be extra work on the downstream tasks to make up for the fact that the data is already in R. 
+
+## Before we get into today's content
+
+> Who cares? 
+
+# Subsetting/Filtering 
+
+One of the more frequent tasks is related to filtering/subsetting your data. 
+You often want to impose some types of rules on your data (e.g., US only, date ranges).
+
+## Base
+
+R gives us all the ability in the world to filter data.
+
+```{r}
+# notice where the comma is in the next line
+
+summary(mtcars[mtcars$mpg < mean(mtcars$mpg), ])
+```
+
+Unless you know exactly what you are doing, this is a bit hard to read -- you might be asking yourself what the comma means and why there is nothing after it.
+
+
+## dplyr
+
+When we use <span class="func">filter</span>, we are specifying what it is that we want to keep.
+
+Keep this or that:
+
+```{r}
+library(dplyr) 
+mtcars %>% 
+  filter(cyl == 4 | cyl == 8) %>% 
+  summary()
+```
+
+Keep this and that:
+
+```{r}
+mtcars %>% 
+  filter(cyl == 4 & mpg > 25) %>% 
+  summary()
+```
+
+Filter this out:
+
+```{r}
+mtcars %>% 
+  filter(cyl != 4) %>% 
+  summary()
+```
+
+
+
+Naturally, it can also take a function
+
+```{r}
+mtcars %>% 
+  filter(mpg < mean(mpg)) %>% 
+  summary()
+```
+
+
+## Your Turn (YT1) 
+
+For now, we are going to stick with that stataExample data from yesterday:
+
+```{r, eval = FALSE}
+# from yesterday  
+
+haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+```
+
+1.  Select the same variables, but also include Rater.
+  - Every lvi, effect, leader, and cred variable
+
+2.  Filter the data on Rater -- check the values and filter both ways.
+
+3.  Now check those correlations again!
+
+4.  Throw the Gender variable in and filter on that.
+
+Correlation code from yesterday: 
+
+```{r}
+library(corrplot)
+testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+
+testData %>%
+  select(starts_with("lvi"), "effect", starts_with("leader"), starts_with("cred")) %>%
+  summary()
+
+testData %>%
+  select(starts_with("lvi")) %>%
+  cor(., use="pairwise.complete.obs") %>% 
+  corrplot()
+
+```
 
 
 # New Variables and Recoding 
@@ -80,6 +241,8 @@ Or this:
 mtcars$vs = ifelse(mtcars$vs == 0, "v", "s")
 ```
 
+A little messy, right? 
+Mixing characters and numbers, particularly with boolean logic, is usually a risky proposition.
 
 ## dplyr recoding
 
@@ -87,7 +250,7 @@ mtcars$vs = ifelse(mtcars$vs == 0, "v", "s")
 recode(mtcars$vs, `0` = "v", `1` = "s")
 ```
 
-## Your Turn! (YT1) 
+## Your Turn! (YT2) 
 
 1.  For the sake of demonstration, select only the first 10 lvi variables and everything else.
 
@@ -157,7 +320,7 @@ mtcars %>%
 
 You are not limited to single <span class="func">group_by statements</span>!
 
-## Your Turn (YT2) 
+## Your Turn (YT3) 
 
 1.  Use the stataData again:
 
@@ -172,6 +335,9 @@ stataExample = haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataEx
 3.  Pick a variable to summarize and some type of summary statistic.
 
     - mean() and sd() are both easy, but be mindful of NAs
+
+
+# Break 
 
 # Reshaping 
 
@@ -210,7 +376,10 @@ There is a bit of a hierarchy in R with regard to reshaping data. The <span clas
 
 ## Base/stats
 
-The following chunk of code needs the <span class="func">as.data.frame()</span>. Why, you might ask? Almost everything in <span class="pack">dplyr</span> converts data to a <span class="pack">tibble</span>. What's a <span class="pack">tibble</span>? [From the tidyverse website](https://tibble.tidyverse.org/):
+The following chunk of code needs the <span class="func">as.data.frame()</span> function. 
+Why, you might ask? 
+Almost everything in <span class="pack">dplyr</span> converts data to a <span class="pack">tibble</span>. 
+What's a <span class="pack">tibble</span>? [From the tidyverse website](https://tibble.tidyverse.org/):
 
 > Tibbles are data.frames that are lazy and surly: they do less (i.e. they don’t change variable names or types, and don’t do partial matching) and complain more (e.g. when a variable does not exist)
 
@@ -351,9 +520,9 @@ In addition to reshaping, <span class="pack">tidyr</span> has some handy functio
 
 While we won't dive into it, the <span class="pack">splitstackshape</span> package is very handy for reshaping. It also has additional uses for column manipulations
 
-## Your Turn (YT3) 
+## Your Turn (YT4) 
 
-Spend some time pivoting different subsets of the starwards data set. 
+Spend some time pivoting different subsets of the starwars data set. 
 What can you filter on/select/plot?
 
 
@@ -421,7 +590,8 @@ leftTestEqual = left_join(merge1, sasExample, by = c("gvkey",
                                                 "datadate" = "DATADATE1"))
 ```
 
-How did this one work? Always check your data!
+How did this one work? 
+Always check your data!
 
 ## Right
 
@@ -458,7 +628,7 @@ I didn't mention the anti join before! It does exactly what it sounds like -- it
 antiTest = anti_join(merge1, sasExample, by = c("gvkey"))
 ```
 
-## Your Turn! (YT4)
+## Your Turn! (YT5)
 
 Let's look at these three files:
 
@@ -539,7 +709,7 @@ Others take some intense trial and error: \\(*[0-9]{3}.*[0-9]{3}.*[0-9]{4}
 
 Learning just a little and being able to use them in a variety of settings is most helpful.
 
-Learning regular expressions in R is a bit tough, so let's go here: [regexr.com](regexr.com)
+Learning regular expressions in R is a bit tough, so let's go here: http://www.regexr.com
 
 
 ## stringr
@@ -635,7 +805,7 @@ If you have not worked with regular expressions before today, you might be wonde
 ![](http://imgs.xkcd.com/comics/backslashes.png)
 
 
-## Your Turn (YT5)
+## Your Turn (YT6)
 
 Did you notice "Peak" too? Why don't you handle that one?
 
@@ -692,7 +862,7 @@ Specifically, think about (and the discuss):
 
 # Thursday Hackathon Reminder
 
-- Groups: between 2-5 members, but if you have a compelling case for going solo, let me know
+- Groups: between 3-5 members, but if you have a compelling case for going solo, let me know
 - Data: You'll need something to wrangle
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
 - Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
