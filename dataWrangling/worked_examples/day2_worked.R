@@ -1,7 +1,19 @@
 library(haven)
 library(dplyr)
 
-# YT1 
+# YT1
+table(testData$Rater)
+testData %>%
+  select("Rater", "Gender", starts_with("lvi"), "effect", starts_with("leader"), starts_with("cred")) %>%
+  #  filter(Rater==0) %>%
+  #  filter(Rater==3) %>%
+  filter(Gender==1) %>%
+  #  filter(Gender==0) %>%
+  select(starts_with("lvi")) %>%
+  cor(., use="pairwise.complete.obs") %>%
+  corrplot()
+
+# YT2 
 testData %>%
   select(-num_range("lvi",11:48)) %>%
   filter(Rater == 0) %>%
@@ -10,7 +22,7 @@ testData %>%
          mean2 = mean(c(lvi06, lvi07,lvi08, lvi09,lvi10), na.rm=TRUE)) %>% 
   select(mean1, mean2)
 
-# YT2
+# YT3
 stataExample <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 names(stataExample)
 
@@ -28,7 +40,7 @@ stataExample %>%
   summarise(n = n_distinct(leaderID))
 
 
-# YT3
+# YT4
 # star wars data 
 
 library(tidyr)
@@ -66,7 +78,7 @@ starwars %>%
   theme_minimal()
 
 
-# YT4 
+# YT5 
 library(haven)
 library(readr)
 merge1 = "https://www3.nd.edu/~sberry5/data/merge1Company.dta"
@@ -103,7 +115,7 @@ grep(pattern = "\\b[a-z]{2}\\b", x = realComments, value=TRUE)
 grepl(pattern = "\\b[a-z]{2}\\b", x = realComments)
 
 
-# YT5 
+# YT6 
 # movie data
 library(rvest)
 highest = read_html("https://en.wikipedia.org/wiki/List_of_highest-grossing_films") %>% 

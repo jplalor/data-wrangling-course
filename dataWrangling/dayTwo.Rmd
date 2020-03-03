@@ -58,7 +58,9 @@ attributes(testdata$Rater)
 
 attr(testdata$Rater, "label")
 
+attr(testdata$Rater, "label") <- "New description"
 
+attr(testdata$Rater, "label")
 ```
 
 - more info: https://haven.tidyverse.org/reference/read_dta.html 
@@ -156,7 +158,7 @@ haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 ```
 
 1.  Select the same variables, but also include Rater.
-  - Every lvi, effect, leader, and cred variable
+    - Every lvi, effect, leader, and cred variable, plus Rater
 
 2.  Filter the data on Rater -- check the values and filter both ways.
 
@@ -169,10 +171,6 @@ Correlation code from yesterday:
 ```{r}
 library(corrplot)
 testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
-
-testData %>%
-  select(starts_with("lvi"), "effect", starts_with("leader"), starts_with("cred")) %>%
-  summary()
 
 testData %>%
   select(starts_with("lvi")) %>%
@@ -485,6 +483,9 @@ starwarsLong %>%
 As of very recently, <span class="func">gather</span> and <span class="func">spread</span> have been retired in the tidyverse. 
 The new way that the cool kids are manipulating their tibbles it is with <span class="func">pivot_longer</span> and <span class="func">pivot_wider</span>.
 
+- Documentation: https://tidyr.tidyverse.org/dev/articles/pivot.html
+    - This is a very clear and thorough vignette on pivoting, worth your while. 
+
 ```{r}
 starwars %>% 
   filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
@@ -687,6 +688,7 @@ Therefore, we need to learn to accept a default frame of reference that allows u
 
 Keep this concept of *data collaging* in your mind.
 
+# Short Break 
 
 # String Cleaning 
 
