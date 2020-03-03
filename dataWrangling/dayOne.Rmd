@@ -40,7 +40,7 @@ We'll figure this out together.
 
 ### Thursday Hackathon
 
-- Groups: between 2-5 members, but if you have a compelling case for going solo, let me know
+- Groups: between 3-5 members, but if you have a compelling case for going solo, let me know
 - Data: You'll need something to wrangle
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
 - Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
