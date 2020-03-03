@@ -9,6 +9,10 @@ D.sdc <- read.table("https://www3.nd.edu/~sberry5/data/sdcTest.txt",
                     comment.char = "",
                     quote="", stringsAsFactors = F)
 
+
+
+
+
 # YT2
 testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 names(testData)
@@ -20,7 +24,6 @@ testData %>%
 
 testData %>%
   select(starts_with("lvi")) %>%
-#  cor() %>%
   cor(., use="pairwise.complete.obs") %>% 
   corrplot()
 
