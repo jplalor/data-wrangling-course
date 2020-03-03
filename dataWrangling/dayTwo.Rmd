@@ -18,6 +18,23 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 
 # Day 1 Followup
 
+## Weird Delimiters
+
+```{r, eval=FALSE}
+library(readr)
+D.sdc <- read.table("http://jplalor.github.io/files/sdcTestSmall.txt",
+                    header=T, sep="^",
+                    comment.char = "",
+                    quote="", stringsAsFactors = F)
+
+sdc = read_delim("http://jplalor.github.io/files/sdcTestSmall.txt", 
+                 delim="^", quote="",
+                 col_types="DDDDDDcccnnnDDccccccccnl",
+                 locale = locale(date_format = "%m/%d/%y"))
+
+
+```
+
 ## Facets
 
 > What's the difference between <span class="func">facet_grid</span> and <span class="func">facet_wrap</span>? 
