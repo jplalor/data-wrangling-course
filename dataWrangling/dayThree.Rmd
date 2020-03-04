@@ -20,6 +20,47 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 
 TBD
 
+## Corrplot Details 
+
+> Is the size of the corrplot dot meaningful?
+
+Yes. From the corrplot vignette (https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html):
+
+> Positive correlations are displayed in blue and negative correlations in red color. Color intensity and the size of the circle are proportional to the correlation coefficients.
+
+```{r}
+library(corrplot)
+library(dplyr)
+testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+
+testData %>%
+  select(starts_with("lvi0")) %>%
+  cor(., use="pairwise.complete.obs") %>% 
+  corrplot()
+
+```
+
+## Regex and Contractions
+
+> What's the deal with Can't from yesterday's examples?
+
+```{r}
+
+library(stringr)
+
+realComments = c("I love wrangling data", "strings r fun", 
+                 "I wish it were break", "Can't we use excel?")
+
+str_subset(string = realComments, pattern = "\\b[a-z]{4}\\b")
+
+# this catches the 4th example because of how word boundaries are defined
+str_subset(string = realComments, pattern = "\\b[A-Za-z']{4}\\b")
+
+# a better way to find 4 letter words (including contractions) 
+str_subset(string=realComments, pattern = "\\b([A-Za-z]{4}|[A-Za-z]{3}'[A-Za-z])\\b")
+```
+
+
 ## Plan for the next two days
 
 # Merging 
