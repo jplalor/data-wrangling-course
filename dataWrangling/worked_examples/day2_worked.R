@@ -106,7 +106,6 @@ sasExample = "https://www3.nd.edu/~sberry5/data/wciklink_gvkey.sas7bdat"
 
 m1 = haven::read_dta(merge1)
 m2 = readr::read_delim(merge2Hoberg, "\t")
-
 m4 = haven::read_sas(sasExample)
 
 names(m1)
@@ -117,7 +116,7 @@ head(m1)
 head(m2)
 head(m4)
 
-m1$gvkey = as.numeric(m1$gvkey)
+m4$gvkey = as.numeric(m4$gvkey)
 
 inner_join(m1, m4, by=c("coname"))
 left_join(m1, m2, by=c("gvkey"))
