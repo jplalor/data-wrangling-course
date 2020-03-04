@@ -1,14 +1,26 @@
 library(haven)
 library(dplyr)
+library(corrplot)
+
+
+
+
+
+
+
+
+
 
 # YT1
+testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 table(testData$Rater)
+table(testData$Gender)
 testData %>%
   select("Rater", "Gender", starts_with("lvi"), "effect", starts_with("leader"), starts_with("cred")) %>%
   #  filter(Rater==0) %>%
   #  filter(Rater==3) %>%
-  filter(Gender==1) %>%
-  #  filter(Gender==0) %>%
+  # filter(Gender==1) %>%
+    filter(Gender==0) %>%
   select(starts_with("lvi")) %>%
   cor(., use="pairwise.complete.obs") %>%
   corrplot()
@@ -26,6 +38,7 @@ testData %>%
 stataExample <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
 names(stataExample)
 
+table(stataExample$Gender)
 stataExample %>%
   summary() 
 
@@ -34,10 +47,16 @@ stataExample %>%
   summarise(n = n())
 
 stataExample %>%
+  filter(!is.na(Gender)) %>%
+  group_by(Gender) %>%
+  summarise(n = n())
+
+stataExample %>%
   summarise(mean = mean(leader_tenure, na.rm=TRUE))
 
 stataExample %>%
   summarise(n = n_distinct(leaderID))
+
 
 
 # YT4
