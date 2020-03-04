@@ -18,9 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 # Admin
 ## Day 2 Follow-up
 
-TBD
-
-## Corrplot Details 
+### Corrplot Details 
 
 > Is the size of the corrplot dot meaningful?
 
@@ -40,7 +38,7 @@ testData %>%
 
 ```
 
-## Regex and Contractions
+### Regex and Contractions
 
 > What's the deal with Can't from yesterday's examples?
 
@@ -71,7 +69,8 @@ str_subset(string=realComments, pattern = "\\b([a-z]{4}|[a-z']{4}[a-z])\\b")
 
 # Merging 
 
-Now we are playing with power! Having multiple datasets in memory is one of R's strong points (not everything can manage such a modern feat). Once you get out there, this becomes important.
+Having multiple datasets in memory is one of R's strong points (not everything can manage such a modern feat). 
+Once you get out there, this becomes important.
 
 Not only can we have multiple datasets open, but we can also merge those datasets together, with the proper variables, of course. 
 
@@ -236,7 +235,7 @@ Keep this concept of *data collaging* in your mind.
 From what we've covered so far, you should be in a good position to wrangle a lot of different types of data. 
 The tools from Days 1 and 2 will get you very far. 
 Today we'll look at some interesting things for specific types of data, then wrap back around to some more common R techniques, and wrap up with preparation for tomorrow's hackathon. 
-We'll be making teams and (starting to) select data sets for tomorrow at the end of today's class, so start thinking about potential teammates (2-4 students per team), team names, and data set ideas.
+We'll be making teams and (starting to) select data sets for tomorrow at the end of today's class, so start thinking about potential teammates (3-5 students per team), team names, and data set ideas.
 
 
 # Fuzzy Joins 
