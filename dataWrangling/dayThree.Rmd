@@ -58,6 +58,12 @@ str_subset(string = realComments, pattern = "\\b[A-Za-z']{4}\\b")
 
 # a better way to find 4 letter words (including contractions) 
 str_subset(string=realComments, pattern = "\\b([A-Za-z]{4}|[A-Za-z]{3}'[A-Za-z])\\b")
+
+# slightly more generic
+realComments = c("I love wrangling data", "strings r fun", 
+                 "Can't this be a little easier", "We're struggling here")
+
+str_subset(string=realComments, pattern = "\\b([a-z]{4}|[a-z']{4}[a-z])\\b")
 ```
 
 
