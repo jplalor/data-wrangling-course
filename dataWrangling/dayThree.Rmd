@@ -747,4 +747,13 @@ Presentations should include:
 
 You should have your groups finalized by the end of class today. You don't necessarily need a final decision on your data (or team name), but that should be top priority for tomorrow morning.
 
+I will set up folders on the shared drive for teams to upload their submissions. 
+Teams should include in their submissions:
+
+- Final presentation (knitted .Rmd file, Powerpoint slides, etc.)
+- R code files used to generate report plots and/or report itself (if you used RMarkdown)
+- Either
+    - a copy of your data set (if it's a reasonable size)
+    - a link to the webpage you downloaded your data from
+    
 
