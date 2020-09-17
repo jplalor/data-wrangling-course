@@ -19,10 +19,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Logistics
 ### Course dates 
-03/02/2020 - 03/05/2020, 9:00am - 12:15pm
+10/05/2020 - 10/08/2020, 1:00pm - 4:10pm
 
 ### Course location 
-Mendoza 160
+Stayer B003
 
 ### Instructor
 **John Lalor**
@@ -75,12 +75,13 @@ Use these daily checks to start practicing how to build your mental data wrangli
 
 ## Hackathon
 While not, strictly speaking, an assessment, our last day together is going to be a hackathon. 
-You will get into groups of 3 to 5 people, choose a data set, cobble it into some shape, and give a brief presentation. 
+You will get into groups of 5 people, choose a data set, cobble it into some shape, and give a brief presentation. 
 The probability of some breakfast treat appearing is incredibly close to 1.  
 
 ### A few notes on the hackathon
 
-- You will be picking your own groups for the hackathon. Because we are only together for a week, I'm relying on you to form groups where members have a good complement of skills. 
+<!-- - You will be picking your own groups for the hackathon. Because we are only together for a week, I'm relying on you to form groups where members have a good complement of skills. -->
+- Your learning group will be your team for the hackathon.
 - Because of the schedule, I encourage each group to form early and think about possible data sets early as well. A rough outline for the week might look like what's outlined below. That said, nothing is set in stone with regards to the hackathon before Thursday. 
   - Monday: Form groups
   - Tuesday: Identify and explore potential data sets
@@ -93,7 +94,7 @@ The probability of some breakfast treat appearing is incredibly close to 1.
 Although we are only together for a week, I want to make sure that the course goes well for everyone. 
 To that end, I've set up an anonymous feedback form online, available at the following link: 
 
-[**Click here to access the feedback form**](https://forms.gle/btqy3dUthj9V1jZX9)
+[**Click here to access the feedback form**](https://forms.gle/xE6JMuJgSdqVZJMZ9)
 
 Please use the form to list any comments, concerns, etc. with regards to the class. 
 I will check the form responses each day and, if necessary, address them the following morning. 
