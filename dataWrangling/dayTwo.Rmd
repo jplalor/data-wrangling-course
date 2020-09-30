@@ -919,3 +919,7 @@ Presentations should include:
 - Data set introduction
 - Wrangling performed (conceptual as well as tools used)
 - Final insight (tables, plots, etc.) 
+
+## Daily check
+
+*TODO* create a prompt for day 2.

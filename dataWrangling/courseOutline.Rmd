@@ -4,8 +4,8 @@ title: |
   | ITAO 70810
   | Course Overview
   
-author: |
-  | John Lalor
+#author: |
+#  | John Lalor
 output: pdf_document 
   #html_document:
   #  theme: flatly
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Stayer B003
 
 ### Instructor
-**John Lalor**
+**Prof. John Lalor**
 
 Assistant Professor of IT, Analytics, and Operations
 
@@ -82,7 +82,7 @@ The probability of some breakfast treat appearing is incredibly close to 1.
 
 <!-- - You will be picking your own groups for the hackathon. Because we are only together for a week, I'm relying on you to form groups where members have a good complement of skills. -->
 - Your learning group will be your team for the hackathon.
-- Because of the schedule, I encourage each group to form early and think about possible data sets early as well. A rough outline for the week might look like what's outlined below. That said, nothing is set in stone with regards to the hackathon before Thursday. 
+- Because of the schedule, I encourage each group to get together early and think about possible data sets early as well. A rough outline for the week might look like what's below. That said, nothing is set in stone with regards to the hackathon before Thursday. 
   - Monday: Form groups
   - Tuesday: Identify and explore potential data sets
   - Wednesday: Formulate a project plan for Thursday
@@ -97,7 +97,7 @@ To that end, I've set up an anonymous feedback form online, available at the fol
 [**Click here to access the feedback form**](https://forms.gle/xE6JMuJgSdqVZJMZ9)
 
 Please use the form to list any comments, concerns, etc. with regards to the class. 
-I will check the form responses each day and, if necessary, address them the following morning. 
+I will check the form responses each day and, if necessary, address them the following afternoon. 
 If there are things that you like, let me know!
 If there are things that you do not like, let me know!
 Real-time feedback will allow me to update the class so that you can benefit from the changes, along with students who will take the class in future semesters.

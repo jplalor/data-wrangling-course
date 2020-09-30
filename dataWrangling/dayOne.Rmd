@@ -25,8 +25,10 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 - Introductions 
   - Name
   - Hometown 
-  - Best book you've read so far in 2020
-  
+  - Best of 2020:
+    - book you've read
+    - movie/tv show you've watched
+
 ## Logistics for this week
 
 This file is a knitted RMarkdown document. 
@@ -40,7 +42,8 @@ We'll figure this out together.
 
 ### Thursday Hackathon
 
-- Groups: between 3-5 members, but if you have a compelling case for going solo, let me know
+<!-- - Groups: between 3-5 members, but if you have a compelling case for going solo, let me know -->
+- Groups: learning groups
 - Data: You'll need something to wrangle
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
 - Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
@@ -920,4 +923,6 @@ If you want to work in a reproducible fashion <span class="rmarkdown">base</span
 The slides you saw earlier and even the document you are seeing now are all done with R Markdown. 
 It is my hope that you will also use R Markdown for your presentations on Thursday.
 
+## Daily check
 
+*TODO* create a prompt for day 1.

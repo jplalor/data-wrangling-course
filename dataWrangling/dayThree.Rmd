@@ -757,3 +757,6 @@ Teams should include in their submissions:
     - a link to the webpage you downloaded your data from
     
 
+## Daily check
+
+*TODO* create a prompt for day 3.
