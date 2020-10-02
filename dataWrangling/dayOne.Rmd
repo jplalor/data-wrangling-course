@@ -322,6 +322,24 @@ With that in mind, we won't be using it in this class, but do keep it in the bac
 At times, you will get data in some proprietary format. 
 That is when you need to turn to other places.
 
+## Weird Delimiters
+
+```{r, eval=FALSE}
+library(readr)
+D.sdc <- read.table("http://jplalor.github.io/files/sdcTestSmall.txt",
+                    header=T, sep="^",
+                    comment.char = "",
+                    quote="", stringsAsFactors = F)
+
+sdc = read_delim("http://jplalor.github.io/files/sdcTestSmall.txt", 
+                 delim="^", quote="",
+                 col_types="DDDDDDcccnnnDDccccccccnl",
+                 locale = locale(date_format = "%m/%d/%y"))
+
+
+```
+
+
 ## Excel
 
 Download the following Excel file: https://www3.nd.edu/~sberry5/data/excelTest.xlsx
@@ -518,7 +536,7 @@ rio::import_list("", rbind = TRUE)
 
 # Break
 
-Get some coffee, stretch your legs, start thinking about group members for Thursday's hackathon. 
+Get some coffee, stretch your legs, chat with group members for Thursday's hackathon. 
 
 # The Grammar Of Data
 
@@ -789,8 +807,6 @@ For now, we are going to stick with that stataExample data.
 
 # Communication
 
-We won't have any big end-of-day wrap exercises to do today. 
-Instead, we are going to learn just a few cool things.
 
 ## ggplot2
 
@@ -886,6 +902,40 @@ You can also build plots with <span class="pack">plotly</span>, but we will save
 Learning to use <span class="pack">ggplot2</span> will pay great dividends -- there is absolutely **nothing** better for creating visualizations. 
 There is even a whole group of packages that do nothing but add stuff into it.
 
+
+
+## Facets
+
+> What's the difference between <span class="func">facet_grid</span> and <span class="func">facet_wrap</span>? 
+
+```{r}
+library(ggplot2) 
+g <- ggplot(mpg, aes(displ, hwy))
+
+g + geom_point(alpha=1/3) + facet_grid(cyl~class)
+```
+ 
+
+Compare this with
+
+```{r}
+
+g <- ggplot(mpg, aes(displ, hwy))
+
+g + geom_point(alpha=1/3) + facet_wrap(cyl~class)
+```
+
+More info:
+
+- http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/
+
+- http://www.sthda.com/english/wiki/ggplot2-facet-split-a-plot-into-a-matrix-of-panels
+
+- https://stackoverflow.com/questions/20457905/whats-the-difference-between-facet-wrap-and-facet-grid-in-ggplot2 
+
+
+
+
 ## DT
 
 Visualizations are great and they often tell a better story than tables. 
@@ -925,4 +975,9 @@ It is my hope that you will also use R Markdown for your presentations on Thursd
 
 ## Daily check
 
-*TODO* create a prompt for day 1.
+For this evening, I'd like you to read back through this Rmarkdown document, and thing about the following questions:
+
+- *Who cares?* Specifically, why do you think I'm bombarding you with R code?
+- *What can I do with this?* In the short term: how can you apply this to your hackathon data set? More long-term, how could you apply this in a future work project? 
+- *What's missing?* We're going to dig into some more details over the next two days, but if there is something you really want to learn about this week, let me know and I'll see if I can fit it in.
+

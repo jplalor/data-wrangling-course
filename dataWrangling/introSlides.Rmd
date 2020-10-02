@@ -2,7 +2,7 @@
 title: "Data Wrangling With R"
 subtitle: "Introduction"
 author: "Prof. John Lalor"
-date: March 2, 2020
+date: October 5, 2020
 output: binb::metropolis
 #  revealjs::revealjs_presentation:
 #    css: documentCSS.css

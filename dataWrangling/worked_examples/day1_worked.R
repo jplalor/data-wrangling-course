@@ -27,6 +27,18 @@ testData %>%
   cor(., use="pairwise.complete.obs") %>% 
   corrplot()
 
+
+testdata <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+
+attributes(testdata$Rater) 
+
+attr(testdata$Rater, "label")
+
+attr(testdata$Rater, "label") <- "New description"
+
+attr(testdata$Rater, "label")
+
+
 # YT3
 table(testData$Rater)
 testData %>%
