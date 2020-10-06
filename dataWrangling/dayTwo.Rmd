@@ -38,99 +38,32 @@ Possible sources of inspiration:
 
 Just a note on the last three links above, if you are using data that is alreay loaded in an R package, that is (potentially) fine, but I'll expect that there will be extra work on the downstream tasks to make up for the fact that the data is already in R. 
 
-## Before we get into today's content
+# Thursday Hackathon Reminder
 
-> Who cares? 
+- Groups: learning groups
+- Data: You'll need something to wrangle
+- Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
+- Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
 
-# Subsetting/Filtering 
+For your presentation you can present:
 
-One of the more frequent tasks is related to filtering/subsetting your data. 
-You often want to impose some types of rules on your data (e.g., US only, date ranges).
+- Slides (Powerpoint OR pdf slides from an Rmd document)
+- knitted Rmd document
 
-## Base
+Presentations should include:
 
-R gives us all the ability in the world to filter data.
+- Team name
+- Team members' names
+- Data set introduction
+- Wrangling performed (conceptual as well as tools used)
+- Final insight (tables, plots, etc.) 
 
-```{r}
-# notice where the comma is in the next line
+## Daily check discussion
 
-summary(mtcars[mtcars$mpg < mean(mtcars$mpg), ])
-```
+- *Who cares?* Specifically, why do you think I'm bombarding you with R code?
+- *What can I do with this?* In the short term: how can you apply this to your hackathon data set? More long-term, how could you apply this in a future work project? 
+- *What's missing?* We're going to dig into some more details over the next two days, but if there is something you really want to learn about this week, let me know and I'll see if I can fit it in.
 
-Unless you know exactly what you are doing, this is a bit hard to read -- you might be asking yourself what the comma means and why there is nothing after it.
-
-
-## dplyr
-
-When we use <span class="func">filter</span>, we are specifying what it is that we want to keep.
-
-Keep this or that:
-
-```{r}
-library(dplyr) 
-mtcars %>% 
-  filter(cyl == 4 | cyl == 8) %>% 
-  summary()
-```
-
-Keep this and that:
-
-```{r}
-mtcars %>% 
-  filter(cyl == 4 & mpg > 25) %>% 
-  summary()
-```
-
-Filter this out:
-
-```{r}
-mtcars %>% 
-  filter(cyl != 4) %>% 
-  summary()
-```
-
-
-
-Naturally, it can also take a function
-
-```{r}
-mtcars %>% 
-  filter(mpg < mean(mpg)) %>% 
-  summary()
-```
-
-
-## Your Turn (YT1) 
-
-For now, we are going to stick with that stataExample data from yesterday:
-
-```{r, eval = FALSE}
-# from yesterday  
-
-haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
-```
-
-1.  Select the same variables, but also include Rater.
-    - Every lvi, effect, leader, and cred variable, plus Rater
-
-2.  Filter the data on Rater -- check the values and filter both ways.
-
-3.  Now check those correlations again!
-
-4.  Throw the Gender variable in and filter on that.
-
-Correlation code from yesterday: 
-
-```{r}
-library(corrplot)
-testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
-
-testData %>%
-  select(starts_with("lvi")) %>%
-  cor(., use="pairwise.complete.obs") %>% 
-  corrplot()
-
-```
 
 
 # New Variables and Recoding 
@@ -201,7 +134,15 @@ Mixing characters and numbers, particularly with boolean logic, is usually a ris
 recode(mtcars$vs, `0` = "v", `1` = "s")
 ```
 
-## Your Turn! (YT2) 
+## Your Turn! (YT1) 
+
+
+```{r, eval = FALSE}
+# from above 
+
+haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
+```
+
 
 1.  For the sake of demonstration, select only the first 10 lvi variables and everything else.
 
@@ -271,7 +212,7 @@ mtcars %>%
 
 You are not limited to single <span class="func">group_by statements</span>!
 
-## Your Turn (YT3) 
+## Your Turn (YT2) 
 
 1.  Use the stataData again:
 
@@ -292,7 +233,7 @@ stataExample = haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataEx
 
 # Reshaping 
 
-Now, things are going to get weird.
+Now, things are going to get interesting.
 
 Data can take many different forms.
 
@@ -335,7 +276,7 @@ What's a <span class="pack">tibble</span>? [From the tidyverse website](https://
 > Tibbles are data.frames that are lazy and surly: they do less (i.e. they don’t change variable names or types, and don’t do partial matching) and complain more (e.g. when a variable does not exist)
 
 
-Many base R functions will go crazy when they encounter a tibble, so you need to explicitly make it a data frame. You might ask what is the trouble with tibbles (anyone?)...
+Many base R functions will go crazy when they encounter a tibble, so you need to explicitly make it a data frame. 
 
 Notice some of the base R reshape quirks?
 
@@ -400,6 +341,44 @@ starwars %>%
 
 ## tidyr
 
+### pivot
+
+
+- Documentation: https://tidyr.tidyverse.org/dev/articles/pivot.html
+    - This is a very clear and thorough vignette on pivoting, worth your time. 
+
+```{r}
+starwars %>% 
+  filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
+  select(name, height, mass) %>% 
+  tidyr::pivot_longer(., names_to="type", values_to="value", -name) %>% 
+  ggplot(., aes(x = name, y = value, color = type)) + 
+  geom_point(size = 3.5) +
+  scale_color_brewer(palette = "Dark2") +
+  theme_minimal()
+```
+
+And to go back:
+
+```{r}
+
+starwarsLong = starwars %>% 
+  filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
+  select(name, height, mass) %>% 
+  tidyr::pivot_longer(., names_to="type", values_to="value", -name)
+
+starwarsLong
+
+starwarsLong %>% 
+  tidyr::pivot_wider(., names_from = type, values_from=value)
+
+```
+
+### gather/spread
+As of very recently, <span class="func">gather</span> and <span class="func">spread</span> have been retired in the tidyverse. 
+The new way that the cool kids are manipulating their tibbles it is with <span class="func">pivot_longer</span> and <span class="func">pivot_wider</span>.
+
+
 Allows for <span class="pack">dplyr</span> variable selection and a little bit more clarity with creating the id(s) variables.
 
 ```{r}
@@ -431,41 +410,6 @@ starwarsLong %>%
 ```
 
 
-## pivot
-
-As of very recently, <span class="func">gather</span> and <span class="func">spread</span> have been retired in the tidyverse. 
-The new way that the cool kids are manipulating their tibbles it is with <span class="func">pivot_longer</span> and <span class="func">pivot_wider</span>.
-
-- Documentation: https://tidyr.tidyverse.org/dev/articles/pivot.html
-    - This is a very clear and thorough vignette on pivoting, worth your while. 
-
-```{r}
-starwars %>% 
-  filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
-  select(name, height, mass) %>% 
-  tidyr::pivot_longer(., names_to="type", values_to="value", -name) %>% 
-  ggplot(., aes(x = name, y = value, color = type)) + 
-  geom_point(size = 3.5) +
-  scale_color_brewer(palette = "Dark2") +
-  theme_minimal()
-```
-
-And to go back:
-
-```{r}
-
-starwarsLong = starwars %>% 
-  filter(species == "Human" & grepl("(Skywalker)|(Rey)|(Vader)|(Kylo)", .$name)) %>% 
-  select(name, height, mass) %>% 
-  tidyr::pivot_longer(., names_to="type", values_to="value", -name)
-
-starwarsLong
-
-starwarsLong %>% 
-  tidyr::pivot_wider(., names_from = type, values_from=value)
-
-```
-
 
 
 In addition to reshaping, <span class="pack">tidyr</span> has some handy functions for splitting (<span class="func">separate</span>) and pasting (<span class="func">unite</span>) columns.
@@ -474,7 +418,7 @@ In addition to reshaping, <span class="pack">tidyr</span> has some handy functio
 
 While we won't dive into it, the <span class="pack">splitstackshape</span> package is very handy for reshaping. It also has additional uses for column manipulations
 
-## Your Turn (YT4) 
+## Your Turn (YT3) 
 
 Spend some time pivoting different subsets of the starwars data set. 
 What can you filter on/select/plot?
@@ -521,6 +465,7 @@ With that knowledge, can we map the various combinations of all.x and all.y?
 ## Left
 
 ```{r, eval = FALSE}
+library(dplyr)
 merge1 = haven::read_dta("https://www3.nd.edu/~sberry5/data/merge1Company.dta")
 
 sasExample = haven::read_sas("https://www3.nd.edu/~sberry5/data/wciklink_gvkey.sas7bdat")
@@ -582,7 +527,7 @@ I didn't mention the anti join before! It does exactly what it sounds like -- it
 antiTest = anti_join(merge1, sasExample, by = c("gvkey"))
 ```
 
-## Your Turn! (YT5)
+## Your Turn! (YT4)
 
 Let's look at these three files:
 
@@ -636,8 +581,6 @@ This is a point where we should revisit the term data wrangling. It makes sense 
 
 Therefore, we need to learn to accept a default frame of reference that allows us to break things down into smaller pieces. We are not bound to any monolith. 
 
-
-![](http://www.muralmosaic.com/Cochrane/grid.jpg)
 
 Keep this concept of *data collaging* in your mind.
 
@@ -770,7 +713,7 @@ If you have not worked with regular expressions before today, you might be wonde
 ![](http://imgs.xkcd.com/comics/backslashes.png)
 
 
-## Your Turn (YT6)
+## Your Turn (YT5)
 
 Did you notice the "Peak" column too? 
 Why don't you handle that one?
@@ -824,38 +767,16 @@ I'd encourage you to check out the following to learn more about Git and GitHub:
 - [Tutorials from GitHub](https://guides.github.com/activities/hello-world/)
 - [Happy Git and GitHub for the useR](https://happygitwithr.com/) 
 
-# Assessment 
+# Daily check
 
-We've made it to the end of Day 2, which means we're more than halfway through the data wrangling material that we'll cover (but certainly not halfway through all of the data wrangling tools out there). For today's assessment I'd like to you think about a problem or data set that you've encountered. How can the tools we've learned so far help?
+We hit on some key concepts in data wrangling today.
+Tonight I'd like you to take some time to go back through the below concepts and come up with some specific examples where they would be useful to you in a data analysis pipeline. Again, this can be for your group project, data you've encountered before, or some topic you would like to dig into in the future.
 
-Specifically, think about (and the discuss):
-
-- A data set that you've worked with, a data set you would like to work with, or a business problem that you have come across where a large (and possibly messy) data set would be useful for solving the problem.
-- What steps would you need to do to get something out of the data? *Something* here is intentionally vague, and could refer to summary statistics, visualizations, subsets of the data, or something else. Steps here should be tool-agnostic.
-- What tools (*verbs*) would you use to accomplish the goals in the previous step? If you have come up with steps that involve tools we haven't covered, I encourage you to browse through the rest of the [tidyverse](https://www.tidyverse.org/packages/). 
-
+- Merging, joining, binding: we've seen several ways of combining data frames together.
+- Strings and regular expressions: 
+- Other tidyverse verbs
 
 
-# Thursday Hackathon Reminder
 
-- Groups: between 3-5 members, but if you have a compelling case for going solo, let me know
-- Data: You'll need something to wrangle
-- Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
-- Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
 
-For your presentation you can present:
 
-- Slides (Powerpoint OR pdf slides from an Rmd document)
-- knitted Rmd document
-
-Presentations should include:
-
-- Team name
-- Team members' names
-- Data set introduction
-- Wrangling performed (conceptual as well as tools used)
-- Final insight (tables, plots, etc.) 
-
-## Daily check
-
-*TODO* create a prompt for day 2.

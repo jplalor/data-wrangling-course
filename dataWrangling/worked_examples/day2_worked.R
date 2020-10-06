@@ -117,6 +117,8 @@ head(m2)
 head(m4)
 
 m4$gvkey = as.numeric(m4$gvkey)
+m2$gvkey = as.numeric(m2$gvkey)
+m1$gvkey = as.numeric(m1$gvkey)
 
 inner_join(m1, m4, by=c("coname"))
 left_join(m1, m2, by=c("gvkey"))
