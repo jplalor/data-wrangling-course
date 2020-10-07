@@ -18,25 +18,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 # Admin
 ## Day 2 Follow-up
 
-### Corrplot Details 
-
-> Is the size of the corrplot dot meaningful?
-
-Yes. From the corrplot vignette (https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html):
-
-> Positive correlations are displayed in blue and negative correlations in red color. Color intensity and the size of the circle are proportional to the correlation coefficients.
-
-```{r}
-library(corrplot)
-library(dplyr)
-testData <- haven::read_dta(file = "https://www3.nd.edu/~sberry5/data/stataExample.dta")
-
-testData %>%
-  select(starts_with("lvi0")) %>%
-  cor(., use="pairwise.complete.obs") %>% 
-  corrplot()
-
-```
 
 ### Regex and Contractions
 
@@ -64,172 +45,16 @@ realComments = c("I love wrangling data", "strings r fun",
 str_subset(string=realComments, pattern = "\\b([a-z]{4}|[a-z']{4}[a-z])\\b")
 ```
 
+## Writing Data
+
+- https://readr.tidyverse.org/reference/write_delim.html 
+
+## Strings
+
+- https://stringr.tidyverse.org/ 
+- https://github.com/juliasilge/tidytext
 
 ## Plan for the next two days
-
-# Merging 
-
-Having multiple datasets in memory is one of R's strong points (not everything can manage such a modern feat). 
-Once you get out there, this becomes important.
-
-Not only can we have multiple datasets open, but we can also merge those datasets together, with the proper variables, of course. 
-
-## base
-
-The <span class="func"></span>merge function in base R, like everything else, can do us a great amount of good. 
-
-```{r, eval = FALSE}
-
-board = haven::read_sas()
-
-organization = haven::read_sas()
-
-mergedDat = merge(x = board, y = organization, by = "", 
-      all.x = TRUE, all.y = FALSE)
-
-```
-
-If there is anything good to be gotten from SQL, it is the notion of different joins and the handy language that it provides for specifying those joins. The merge function gives us no such explicit conventions (we would need to intuit or...read the documentation).
-
-
-### Join Types
-
-Left join = all rows from x and all columns from x and y
-
-Right join = all rows from y and all columns from x and y
-
-Inner join = all rows from x with matching values in y and all columns from x and y
-
-Semi join = all rows from x with matching values in y and just columns from x
-
-Full join = everything
-
-With that knowledge, can we map the various combinations of all.x and all.y? 
-
-## Left
-
-```{r, eval = FALSE}
-merge1 = haven::read_dta("https://www3.nd.edu/~sberry5/data/merge1Company.dta")
-
-sasExample = haven::read_sas("https://www3.nd.edu/~sberry5/data/wciklink_gvkey.sas7bdat")
-
-leftTest = left_join(merge1, sasExample, by = "gvkey")
-```
-
-
-If we want to join on multiple columns, we could provide a character vector:
-
-```{r, eval = FALSE}
-leftTestMultiple = left_join(merge1, sasExample, by = c("gvkey", "coname"))
-```
-
-
-If our names don't match, we need to provide both:
-
-```{r, eval = FALSE}
-leftTestEqual = left_join(merge1, sasExample, by = c("gvkey", 
-                                                "coname", 
-                                                "datadate" = "DATADATE1"))
-```
-
-How did this one work? 
-Always check your data!
-
-## Right
-
-```{r, eval = FALSE}
-rightTest = right_join(merge1, sasExample, by = c("gvkey"))
-```
-
-## Inner
-
-```{r, eval = FALSE}
-innerTest = inner_join(merge1, sasExample, by = c("gvkey"))
-```
-
-
-## Semi
-
-```{r, eval = FALSE}
-semiTest = semi_join(merge1, sasExample, by = c("gvkey"))
-```
-
-
-## Full
-
-```{r, eval = FALSE}
-fullTest = full_join(merge1, sasExample, by = c("gvkey"))
-```
-
-
-## Anti
-
-I didn't mention the anti join before! It does exactly what it sounds like -- it finds the things that don't match. A natural curiousity is the potential purpose for such a function. Can anyone think of anything?
-
-```{r, eval = FALSE}
-antiTest = anti_join(merge1, sasExample, by = c("gvkey"))
-```
-
-## Your Turn! (YT5)
-
-Let's look at these three files:
-
-```{r, eval = FALSE}
-merge1 = "https://www3.nd.edu/~sberry5/data/merge1Company.dta"
-
-merge2Hoberg = "https://www3.nd.edu/~sberry5/data/merge2Hoberg.txt"
-
-sasExample = "https://www3.nd.edu/~sberry5/data/wciklink_gvkey.sas7bdat"
-
-```
-
-1.  Read those files in appropriately (look at the file extensions...or rio).
-2.  Start merging them together in any way that you can.
-
-Chained merges look like this:
-
-```{r, eval = FALSE}
-
-## DO NOT RUN:
-
-left_join(data1, data2, by = "id") %>% 
-  left_join(., data3, by = "id") %>% 
-  left_join(., data4, by = "id")
-
-```
-
-
-
-## Binding
-
-On many occasions, you will want to bring data together in a "stacked" manner.
-
-Imagine you have two data files that look exactly alike with regard to column names, but the values are different. This is when we could use a row bind:
-
-```{r, eval = FALSE}
-data2003 = read.csv("https://www3.nd.edu/~sberry5/data/c2003_a.csv")
-
-data2004 = read.csv("https://www3.nd.edu/~sberry5/data/c2004_a.csv")
-
-complete = rbind(data2003, data2004)
-
-```
-
-
-What if our rows were the same, but we wanted to add some columns? You said cbind, no doubt!
-
-## Data Wrangling?
-
-This is a point where we should revisit the term data wrangling. It makes sense conceptually, but it casts a certain mental image that might be limiting. What we have seen up to this point should make it abundantly clear that we are in control of our data -- this sits nicely with wrangling. What might not be so clear is the artistically forceful way that we sometimes need to make our data behave. Instead, we might want to think of ourselves as *Data Picassos*. Data preparation is often done through a series of data deconstructions -- much like making a collage. We take bits and pieces from various places and then put them together to make something coherent. This also sits nicely with out previous discussion on code golf.
-
-Therefore, we need to learn to accept a default frame of reference that allows us to break things down into smaller pieces. We are not bound to any monolith. 
-
-
-![](http://www.muralmosaic.com/Cochrane/grid.jpg)
-
-Keep this concept of *data collaging* in your mind.
-
-
 
 # Day 3 Intro
 From what we've covered so far, you should be in a good position to wrangle a lot of different types of data. 
@@ -727,7 +552,7 @@ Just a note on the last two links above, if you are using data that is alreay lo
 
 Plan for tomorrow
 
-- Groups: between 2-5 members, but if you have a compelling case for going solo, let me know
+- Groups: learning groups, but if you have a compelling case for going solo, let me know
 - Data: You'll need something to wrangle
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
 - Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
