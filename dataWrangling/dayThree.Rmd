@@ -45,9 +45,13 @@ realComments = c("I love wrangling data", "strings r fun",
 str_subset(string=realComments, pattern = "\\b([a-z]{4}|[a-z']{4}[a-z])\\b")
 ```
 
-## Writing Data
+## Getting your work out of R
 
 - https://readr.tidyverse.org/reference/write_delim.html 
+- https://shiny.rstudio.com/
+- https://github.com/rstudio/blogdown 
+  - https://bookdown.org/yihui/blogdown/ 
+
 
 ## Strings
 
