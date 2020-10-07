@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 
 ### Regex and Contractions
 
-> What's the deal with Can't from yesterday's examples?
+> Find strings with 4-letter words (how does it handle contractions?)
 
 ```{r}
 
@@ -58,7 +58,20 @@ str_subset(string=realComments, pattern = "\\b([a-z]{4}|[a-z']{4}[a-z])\\b")
 - https://stringr.tidyverse.org/ 
 - https://github.com/juliasilge/tidytext
 
+## Working files
+
+- In the shared drive
+
 ## Plan for the next two days
+
+# Daily check discussion
+
+We hit on some key concepts in data wrangling today.
+Tonight I'd like you to take some time to go back through the below concepts and come up with some specific examples where they would be useful to you in a data analysis pipeline. Again, this can be for your group project, data you've encountered before, or some topic you would like to dig into in the future.
+
+- Merging, joining, binding: we've seen several ways of combining data frames together.
+- Strings and regular expressions: 
+- Other tidyverse verbs
 
 # Day 3 Intro
 From what we've covered so far, you should be in a good position to wrangle a lot of different types of data. 
@@ -588,4 +601,9 @@ Teams should include in their submissions:
 
 ## Daily check
 
-*TODO* create a prompt for day 3.
+The check for Day 1 was fairly high level. 
+The check for Day 2 was more specific, and prompted you to really think about specific projects/data sets where these tools might be useful.
+Today's check is high-level again: 
+
+- *Who cares?* Now you've seen data wrangling, and you've seen conceptually how to combine certain tools to decompose problems into a pipeline. 
+- *R self-check*: How do you feel about your R programming skills? Better or worse than at the beginning of the week? Are you confident that you can solve some (maybe not all) data wrangling problems that could crop up when you're working with data? Just as important, are you confident that you can find answers to problems you might encounter (debugging, identifying the right package/function, etc.)? 
