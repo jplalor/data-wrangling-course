@@ -18,41 +18,54 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FAL
 # Admin
 
 - CIF: [link](https://cif.nd.edu/)
-  - Window opens: 3/11/2020
-  - Window closes: 3/13/2020 
+  - Window opens: 10/9/2020 12:01 AM
+  - Window closes: 10/11/2020 11:59 PM
 - Resources
   - [Tidyverse page](https://www.tidyverse.org/)
   - [R for Data Science Book (free)](https://r4ds.had.co.nz/)
   - My info
     - john.lalor@nd.edu
     - 338B MCOB 
-  
+- Daily check discussion
 - Hackathon 
+
+## Daily check discussion
+
+The check for Day 1 was fairly high level. 
+The check for Day 2 was more specific, and prompted you to really think about specific projects/data sets where these tools might be useful.
+Today's check is high-level again: 
+
+- *Who cares?* Now you've seen data wrangling, and you've seen conceptually how to combine certain tools to decompose problems into a pipeline. 
+- *R self-check*: How do you feel about your R programming skills? Better or worse than at the beginning of the week? Are you confident that you can solve some (maybe not all) data wrangling problems that could crop up when you're working with data? Just as important, are you confident that you can find answers to problems you might encounter (debugging, identifying the right package/function, etc.)? 
 
 ## Hackathon Requirements
 
-- By 9:30am:
+- By 1:30pm:
   - Create a team folder on shared Google Drive under "hackathon" (Folder name should be the same as your team name)
   - Add a file (GDoc, Word, .txt, etc.) named "team-details" with the following information:
     - Team name
     - All team member names
     - Proposed data set(s), with links to online locations
       - If the data is not online, mention this (e.g. company data)
-- By 10:30am:
+- By 2:30pm:
   - Your team should have enough insights to get started on the presentation. 
     - You can divide and conquer in order to keep working with the data, but make sure you don't leave the presentation too late
-- By 11:15ish:
+- By 3:15:
   - Presentation time!
-  - The exact start time will depend on the number of teams
-  - 3 minutes to present (hard stop at 3 minutes), 1 minute for questions
+  <!-- - The exact start time will depend on the number of teams -->
+  - 1 minute for setup, 4 minutes to present (hard stop at 4 minutes), 1 minute for questions
     - Briefly introduce yourselves and your data
     - Focus on the insights you obtained from your wrangling
     - Briefly mention wragling techniques (these can be covered during questions as well)
-- By 12:00 pm **tomorrow** (Friday, March 6)
+- Once the presentations start, I expect work to stop
+  - Pay attention to the other groups' presentations
+  - Any last minute changes/discussions: outside the classroom
+- By 12:00 pm **tomorrow** (Friday, October 9)
   - Upload to your team folder on GDrive:
     - Presentation file (PDF, powerpoint, etc.)
     - Supplemental file that includes R code for data import, wrangling, visualization, etc. 
     - I recommend you do it today so it's done. 
+    
 
 # Hackathon!
 
@@ -79,7 +92,7 @@ Just a note on the last two links above, if you are using data that is already l
 
 ### Logistics
 
-- Groups: between 3-5 members, but if you have a compelling case for going solo, let me know
+- Groups: learning groups
 - Data: You'll need something to wrangle
 - Objective: a 3-minute presentation on your data set, what you set out to learn from it, what you did learn, and how you went about learning it.
 - Most important: If you can apply the methods from this week to some data that interests you, I will consider this week a success.
